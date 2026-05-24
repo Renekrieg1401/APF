@@ -538,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="journal-subtitle">Monatliches Evidenz-Protokoll · Ambulante Pflege</div>
   </div>
   <div class="masthead-bottom">
-    <span class="masthead-sources">DNQP · RKI · AWMF · Cochrane · G-BA · MDS</span>
+    <span class="masthead-sources">DNQP · RKI · AWMF · Cochrane · G-BA · BMG · DBFK · GKV · MD-Bund</span>
     <span class="issue-badge" id="issue-num">— / —</span>
   </div>
 </header>
@@ -605,7 +605,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="source-tag">DNQP</span><span class="source-tag">RKI</span>
           <span class="source-tag">AWMF</span><span class="source-tag">Cochrane</span>
           <span class="source-tag">G-BA</span><span class="source-tag">BMG</span>
-          <span class="source-tag">MDS / MDK</span><span class="source-tag">DGP</span>
+          <span class="source-tag">DBFK</span><span class="source-tag">GKV-Spitzenverband</span>
+          <span class="source-tag">MD-Bund</span><span class="source-tag">SGB XI/V</span>
+          <span class="source-tag">MDS</span><span class="source-tag">DGP</span>
         </div>
         <button class="btn" onclick="manualGenerate()" style="font-size:.78rem;padding:.6rem 1.6rem">▶ Aktuelle Ausgabe jetzt generieren</button>
       </div>
@@ -817,17 +819,33 @@ function buildDemoData(monat) {
 function buildPrompt(monat, jahr) {
   return `Du bist Pflegewissenschaftler und Fachjournalist. Erstelle das monatliche Evidenz-Protokoll für die ambulante Pflege (${monat} ${jahr}).
 
-KATEGORIEN (genau diese 8):
+PFLICHTQUELLEN — werte aktiv alle folgenden Organisationen aus:
+• DNQP (Expertenstandards)
+• RKI (Hygiene, Infektionsschutz)
+• AWMF (Leitlinien)
+• Cochrane (Systematic Reviews)
+• G-BA (Gemeinsamer Bundesausschuss – Richtlinien)
+• BMG (Bundesministerium für Gesundheit – Gesetze, Verordnungen)
+• DBFK (Deutscher Berufsverband für Pflegeberufe – Berufspolitik, Standards)
+• GKV-Spitzenverband (Rahmenverträge, Vergütung, Versorgungsverträge nach SGB XI/V)
+• MD-Bund / MDS (Qualitätsprüfungen, Begutachtungsrichtlinien)
+• SGB XI und SGB V (gesetzliche Grundlagen: Leistungsansprüche, Pflegegrade, Qualitätssicherung)
+• DGP, MRE-Netzwerk, BfArM als ergänzende Fachquellen
+
+KATEGORIEN (genau diese 8, Erkenntnisse aus den Pflichtquellen bevorzugen):
 wundversorgung, demenz, medikamente, hygiene, sturz, ernaehrung, schmerz, recht
 
 Für jede Kategorie: 2 Erkenntnisse mit:
-- title (max 80 Zeichen), summary (2–3 Sätze Fachterminologie), practice (1–2 direkt umsetzbare Sätze, beginnt mit Verb), source (nur evidenzbasiert: DNQP/AWMF/RKI/Cochrane/G-BA/BMG/MDS/DGP)
+- title (max 80 Zeichen)
+- summary (2–3 Sätze Fachterminologie, Bezug zur Rechtsgrundlage oder Leitlinie)
+- practice (1–2 direkt umsetzbare Sätze für Pflegefachkräfte, beginnt mit Verb)
+- source (Pflichtangabe: genaue Quelle aus obiger Liste, z.B. "BMG: Pflegeunterstützungs- und -entlastungsgesetz 2023" oder "GKV-Spitzenverband: Rahmenvertrag ambulante Pflege §132a SGB V" oder "MD-Bund: Begutachtungsrichtlinie Pflegegrad 2023" oder "DBFK: Positionspapier Pflegequalität 2024")
 
 PLUS: featured_title, featured_summary (4 Sätze), featured_practice (2 Sätze), featured_source
-UND: stat_studies (12–25), stat_findings (16), stat_sources (5–10), stat_category (Schwerpunkt)
+UND: stat_studies (15–30), stat_findings (16), stat_sources (8–13), stat_category (Schwerpunkt des Monats)
 
-Antworte NUR mit validem JSON. Schema identisch zu diesem Beispiel:
-{"featured_title":"...","featured_summary":"...","featured_practice":"...","featured_source":"...","stat_studies":18,"stat_findings":16,"stat_sources":8,"stat_category":"...","categories":{"wundversorgung":[{"title":"...","summary":"...","practice":"...","source":"..."},{"title":"...","summary":"...","practice":"...","source":"..."}],"demenz":[...],"medikamente":[...],"hygiene":[...],"sturz":[...],"ernaehrung":[...],"schmerz":[...],"recht":[...]}}`;
+Antworte NUR mit validem JSON. Schema:
+{"featured_title":"...","featured_summary":"...","featured_practice":"...","featured_source":"...","stat_studies":22,"stat_findings":16,"stat_sources":11,"stat_category":"...","categories":{"wundversorgung":[{"title":"...","summary":"...","practice":"...","source":"..."},{"title":"...","summary":"...","practice":"...","source":"..."}],"demenz":[...],"medikamente":[...],"hygiene":[...],"sturz":[...],"ernaehrung":[...],"schmerz":[...],"recht":[...]}}`;
 }
 
 async function callAPI(monat, jahr) {
@@ -966,7 +984,7 @@ function renderJournal(data, monat, year, isDemo) {
     <h2>Evidenz-Protokoll · ${monat} ${year}</h2>
     <div class="edition-meta">
       Ausgewertet: ${new Date().toLocaleDateString('de-DE')}<br>
-      Quellen: DNQP · RKI · AWMF · Cochrane · G-BA<br>
+      Quellen: DNQP · RKI · AWMF · BMG · DBFK · GKV · MD-Bund · SGB XI/V<br>
       Schwerpunkt: <strong>${esc(data.stat_category||'—')}</strong>
     </div>`;
   cont.appendChild(hdr);
