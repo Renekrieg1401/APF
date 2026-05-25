@@ -564,12 +564,6 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="sidebar-footer">
       APF·Monitor<br>Automatisch am 1. des Monats
       <div style="margin-top:.9rem;display:flex;flex-direction:column;gap:.4rem">
-        <button onclick="window.print()" style="
-          font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.07em;
-          text-transform:uppercase;background:transparent;border:1px solid #2a2a26;
-          color:#555;padding:.4rem .7rem;cursor:pointer;text-align:left;width:100%;
-          min-height:36px;-webkit-tap-highlight-color:transparent;
-        ">⎙ Protokoll drucken</button>
         <button onclick="clearAllData()" style="
           font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.07em;
           text-transform:uppercase;background:transparent;border:1px solid #2a2a26;
@@ -577,8 +571,29 @@ document.addEventListener('DOMContentLoaded', () => {
           min-height:36px;-webkit-tap-highlight-color:transparent;
         ">⌫ Archiv löschen</button>
       </div>
+      <!-- Legal Links -->
+      <div style="margin-top:1.1rem;padding-top:.75rem;border-top:1px solid #1e1e1a;display:flex;flex-wrap:wrap;gap:.3rem .6rem">
+        <button onclick="openLegal('impressum')" style="font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.06em;text-transform:uppercase;background:transparent;border:none;color:#333;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;">Impressum</button>
+        <span style="color:#252520;font-size:.5rem;line-height:1.9">·</span>
+        <button onclick="openLegal('agb')" style="font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.06em;text-transform:uppercase;background:transparent;border:none;color:#333;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;">AGB</button>
+        <span style="color:#252520;font-size:.5rem;line-height:1.9">·</span>
+        <button onclick="openLegal('datenschutz')" style="font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.06em;text-transform:uppercase;background:transparent;border:none;color:#333;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;">Datenschutz</button>
+        <span style="color:#252520;font-size:.5rem;line-height:1.9">·</span>
+        <button onclick="openLegal('haftung')" style="font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.06em;text-transform:uppercase;background:transparent;border:none;color:#333;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;">Haftung</button>
+      </div>
     </div>
   </aside>
+
+<!-- ═══════════════════ LEGAL MODALS ═══════════════════ -->
+<div id="legal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:500;overflow-y:auto;-webkit-overflow-scrolling:touch;" onclick="if(event.target===this)closeLegal()">
+  <div id="legal-modal" style="background:#0f0e0c;border:1px solid #2a2a26;max-width:640px;margin:2rem auto;padding:0;position:relative;box-shadow:0 8px 48px rgba(0,0,0,.6);">
+    <div style="position:sticky;top:0;background:#0f0e0c;border-bottom:1px solid #1e1e1a;padding:.75rem 1.1rem .65rem;display:flex;justify-content:space-between;align-items:center;z-index:1;">
+      <span id="legal-modal-title" style="font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:#fff;letter-spacing:.02em;"></span>
+      <button onclick="closeLegal()" style="background:none;border:none;color:#555;cursor:pointer;font-size:1.1rem;padding:.1rem .3rem;line-height:1;-webkit-tap-highlight-color:transparent;">✕</button>
+    </div>
+    <div id="legal-modal-body" style="padding:1.4rem 1.4rem 2rem;font-family:'JetBrains Mono',monospace;font-size:.63rem;color:#666;line-height:1.85;letter-spacing:.02em;"></div>
+  </div>
+</div>
 
   <!-- MAIN -->
   <div class="main-content">
@@ -1208,11 +1223,166 @@ function closeSidebar(){
   document.body.style.overflow='';
 }
 
+/* ═══════════════════════════════════════════
+   LEGAL MODALS
+═══════════════════════════════════════════ */
+const LEGAL_CONTENT = {
+  impressum: {
+    title: 'Impressum',
+    html: `
+<p style="color:#8b2515;font-size:.6rem;margin-bottom:1.2rem;letter-spacing:.06em;text-transform:uppercase;">Angaben gemäß § 5 TMG</p>
+
+<p style="color:#aaa;margin-bottom:1.1rem;font-size:.62rem;"><strong style="color:#ccc;">Verantwortlicher:</strong><br>
+[Vorname Nachname / Unternehmensname]<br>
+[Straße Hausnummer]<br>
+[PLZ Ort]<br>
+Deutschland</p>
+
+<p style="color:#aaa;margin-bottom:1.1rem;font-size:.62rem;"><strong style="color:#ccc;">Kontakt:</strong><br>
+Telefon: [+49 XXX XXXXXXX]<br>
+E-Mail: [kontakt@domain.de]</p>
+
+<p style="color:#aaa;margin-bottom:1.1rem;font-size:.62rem;"><strong style="color:#ccc;">Umsatzsteuer-ID:</strong><br>
+Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br>
+[DE XXXXXXXXX]<br>
+<em style="color:#555;">(sofern umsatzsteuerpflichtig)</em></p>
+
+<p style="color:#aaa;margin-bottom:1.1rem;font-size:.62rem;"><strong style="color:#ccc;">Berufsbezeichnung &amp; berufsrechtliche Regelungen:</strong><br>
+Berufsbezeichnung: Pflegefachkraft / Pflegemanagement<br>
+Zuständige Kammer/Behörde: [zuständige Aufsichtsbehörde, Bundesland]<br>
+Berufsrechtliche Regelungen: Krankenpflegegesetz (KrPflG), Pflegeberufegesetz (PflBG)</p>
+
+<p style="color:#aaa;margin-bottom:1.1rem;font-size:.62rem;"><strong style="color:#ccc;">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br>
+[Vorname Nachname]<br>
+[Anschrift wie oben]</p>
+
+<p style="color:#aaa;margin-bottom:1.1rem;font-size:.62rem;"><strong style="color:#ccc;">Streitschlichtung:</strong><br>
+Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <span style="color:#8b2515;">https://ec.europa.eu/consumers/odr/</span><br>
+Zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle sind wir nicht verpflichtet und nicht bereit.</p>
+
+<p style="color:#444;font-size:.56rem;margin-top:1.4rem;border-top:1px solid #1e1e1a;padding-top:.9rem;">APF·Monitor ist ein reines Informationswerkzeug für Pflegefachkräfte. Sämtliche Inhalte dienen der fachlichen Weiterbildung und ersetzen keine rechtlich verbindliche Fachberatung.</p>`
+  },
+
+  agb: {
+    title: 'Allgemeine Geschäftsbedingungen',
+    html: `
+<p style="color:#8b2515;font-size:.6rem;margin-bottom:1.2rem;letter-spacing:.06em;text-transform:uppercase;">Stand: Januar 2025</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 1 Geltungsbereich</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für die Nutzung der Webanwendung APF·Monitor (nachfolgend „Dienst"). Mit der Nutzung des Dienstes erklärt der Nutzer sein Einverständnis mit diesen AGB.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 2 Leistungsbeschreibung</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">APF·Monitor ist ein KI-gestütztes Fachinformationssystem für ambulante Pflegedienste. Der Dienst generiert monatliche Evidenz-Protokolle auf Basis öffentlich zugänglicher Quellen (DNQP, RKI, AWMF, Cochrane, G-BA, BMG, DBFK, GKV-Spitzenverband, MD-Bund, SGB V/XI, MDS, QPR, WHO, DGP). Die Nutzung erfolgt ausschließlich zu Informationszwecken.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 3 Nutzungsbedingungen</p>
+<p style="color:#aaa;margin-bottom:.5rem;font-size:.62rem;">Der Nutzer verpflichtet sich:</p>
+<ul style="color:#aaa;font-size:.62rem;padding-left:1.2rem;margin-bottom:1rem;line-height:2;">
+  <li>Den Dienst ausschließlich für legale, beruflich-fachliche Zwecke zu verwenden.</li>
+  <li>Die generierten Inhalte nicht als abschließende Rechts- oder Behandlungsgrundlage zu verwenden.</li>
+  <li>Keine automatisierten Zugriffe, Scraping oder Reverse-Engineering-Maßnahmen durchzuführen.</li>
+  <li>Dritte nicht in die Lage zu versetzen, die Sicherheitsmechanismen des Dienstes zu umgehen.</li>
+</ul>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 4 API-Schlüssel &amp; Drittanbieter</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Der Dienst nutzt die Anthropic Claude API. Der Nutzer ist für die sichere Verwahrung seines persönlichen API-Schlüssels verantwortlich. Der Anbieter haftet nicht für Schäden, die aus dem Missbrauch oder Verlust des API-Schlüssels entstehen. Es gelten ergänzend die Nutzungsbedingungen der Anthropic PBC (https://www.anthropic.com/legal/usage-policy).</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 5 Verfügbarkeit</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Eine ununterbrochene Verfügbarkeit des Dienstes wird nicht garantiert. Wartungsarbeiten, technische Störungen oder Änderungen seitens der eingesetzten Drittanbieter (Anthropic API) können die Verfügbarkeit einschränken. Ein Anspruch auf Verfügbarkeit besteht nicht.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 6 Geistiges Eigentum</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Design, Quellcode und Systemarchitektur des APF·Monitor sind urheberrechtlich geschützt. Die generierten Protokollinhalte werden dem Nutzer zur eigenen beruflichen Nutzung bereitgestellt. Eine kommerzielle Weitergabe oder Veröffentlichung ohne ausdrückliche Zustimmung des Anbieters ist untersagt.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 7 Änderungen der AGB</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Der Anbieter behält sich vor, diese AGB jederzeit zu ändern. Änderungen werden durch Aktualisierung des Datums im Kopf dieser AGB kenntlich gemacht. Die fortgesetzte Nutzung nach Veröffentlichung geänderter AGB gilt als Zustimmung.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 8 Anwendbares Recht &amp; Gerichtsstand</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Es gilt ausschließlich das Recht der Bundesrepublik Deutschland. Gerichtsstand für alle Streitigkeiten ist, soweit gesetzlich zulässig, der Sitz des Anbieters.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 9 Salvatorische Klausel</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, berührt dies die Wirksamkeit der übrigen Bestimmungen nicht. An die Stelle unwirksamer Regelungen tritt die gesetzliche Regelung.</p>`
+  },
+
+  datenschutz: {
+    title: 'Datenschutzerklärung',
+    html: `
+<p style="color:#8b2515;font-size:.6rem;margin-bottom:1.2rem;letter-spacing:.06em;text-transform:uppercase;">Gemäß DSGVO, BDSG, TMG — Stand: Januar 2025</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">1. Verantwortlicher (Art. 13 Abs. 1 lit. a DSGVO)</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">[Name/Firma, Anschrift, E-Mail] — vgl. Impressum.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">2. Grundsätze der Datenverarbeitung</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">APF·Monitor verarbeitet personenbezogene Daten auf Basis von Art. 6 DSGVO ausschließlich im erforderlichen Umfang. Der Dienst ist technisch so konzipiert, dass keine Daten auf externen Servern des Anbieters gespeichert werden.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">3. Lokaler Gerätespeicher (localStorage)</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Generierte Protokolle und der API-Schlüssel werden ausschließlich im <strong style="color:#ccc;">localStorage des verwendeten Endgeräts</strong> gespeichert. Diese Daten verlassen das Endgerät des Nutzers nicht und werden nicht an den Anbieter übertragen. Der Nutzer kann diese Daten jederzeit über die Funktion „Archiv löschen" oder über die Browsereinstellungen entfernen. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Funktionsbereitstellung).</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">4. Anthropic Claude API</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Für die Generierung der Protokolle werden Anfragen an die Anthropic Claude API (Anthropic PBC, 548 Market St PMB 90375, San Francisco, CA 94104, USA) übermittelt. Die übermittelten Daten umfassen ausschließlich den strukturierten Fachprompt — keine personenbezogenen Daten des Nutzers. Die Datenübertragung in die USA erfolgt auf Basis von Standardvertragsklauseln (SCCs) gemäß Art. 46 Abs. 2 lit. c DSGVO. Datenschutzerklärung Anthropic: https://www.anthropic.com/legal/privacy</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">5. Keine Server-seitige Datenerhebung</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Der APF·Monitor wird als statische HTML-Anwendung ausgeliefert. Es werden keine Cookies, Tracking-Technologien, Analyse-Dienste oder serverseitige Protokolldateien durch den Anbieter eingesetzt. Etwaige Zugriffsprotokolle entstehen ausschließlich beim Hosting-Anbieter (z.B. GitHub Pages) nach dessen eigenen Datenschutzbestimmungen.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">6. Rechte der betroffenen Personen (Art. 15–22 DSGVO)</p>
+<ul style="color:#aaa;font-size:.62rem;padding-left:1.2rem;margin-bottom:1rem;line-height:2;">
+  <li><strong style="color:#ccc;">Auskunftsrecht</strong> (Art. 15): Welche Daten werden verarbeitet?</li>
+  <li><strong style="color:#ccc;">Berichtigung</strong> (Art. 16): Korrektur unrichtiger Daten.</li>
+  <li><strong style="color:#ccc;">Löschung</strong> (Art. 17): „Recht auf Vergessenwerden".</li>
+  <li><strong style="color:#ccc;">Einschränkung</strong> (Art. 18): Verarbeitungseinschränkung.</li>
+  <li><strong style="color:#ccc;">Datenübertragbarkeit</strong> (Art. 20): Export in maschinenlesbarem Format.</li>
+  <li><strong style="color:#ccc;">Widerspruch</strong> (Art. 21): Widerspruch gegen Verarbeitungen auf Basis berechtigter Interessen.</li>
+</ul>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Da lokal gespeicherte Daten ausschließlich auf dem Endgerät des Nutzers liegen, können sämtliche Betroffenenrechte durch den Nutzer selbst ausgeübt werden (Browserfunktionen). Kontakt für Anfragen: [E-Mail aus Impressum].</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">7. Beschwerderecht</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Jede betroffene Person hat das Recht, Beschwerde bei einer Aufsichtsbehörde einzulegen (Art. 77 DSGVO). Zuständige Aufsichtsbehörde richtet sich nach dem Bundesland des Verantwortlichen.</p>
+
+<p style="color:#444;font-size:.56rem;margin-top:1.4rem;border-top:1px solid #1e1e1a;padding-top:.9rem;">Diese Datenschutzerklärung hat den Stand Januar 2025. Bei wesentlichen Änderungen der Datenverarbeitungsprozesse wird die Erklärung aktualisiert.</p>`
+  },
+
+  haftung: {
+    title: 'Haftungsausschluss',
+    html: `
+<p style="color:#8b2515;font-size:.6rem;margin-bottom:1.2rem;letter-spacing:.06em;text-transform:uppercase;">Haftung für Inhalte &amp; Links</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">1. Haftung für Inhalte (§ 7 Abs. 1 TMG)</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Die durch APF·Monitor generierten Protokollinhalte werden von einer KI (Anthropic Claude) auf Basis öffentlich zugänglicher Fachliteratur und Leitlinien erstellt. Trotz sorgfältiger Auswahl der Quellen übernimmt der Anbieter <strong style="color:#c0534a;">keine Haftung</strong> für die Richtigkeit, Vollständigkeit, Aktualität oder Qualität der bereitgestellten Informationen.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">2. Kein Ersatz für fachliche Beratung</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Die Inhalte des APF·Monitor ersetzen <strong style="color:#c0534a;">keine</strong> individuelle rechtliche, medizinische oder pflegerische Fachberatung. Pflegerelevante Entscheidungen (Diagnostik, Therapie, Medikamentengabe, Rechtsauslegung) dürfen nicht allein auf Basis der generierten Protokolle getroffen werden. Maßgeblich sind stets die aktuell gültigen Fachleitlinien, ärztliche Anordnungen und die individuelle Patientensituation.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">3. KI-generierte Inhalte</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">KI-Sprachmodelle können inhaltliche Fehler, Auslassungen oder Halluzinationen produzieren. Der Anbieter haftet nicht für Schäden, die aus der unkritischen Übernahme KI-generierter Aussagen entstehen. Nutzer sind aufgefordert, alle klinisch relevanten Informationen anhand der Originalquellen zu verifizieren.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">4. Haftung für externe Links</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Der Dienst kann auf externe Webseiten verweisen. Für deren Inhalte ist ausschließlich der jeweilige Betreiber verantwortlich. Zum Zeitpunkt der Verlinkung wurden keine rechtswidrigen Inhalte erkennbar. Eine kontinuierliche Kontrolle verlinkter Seiten ist ohne konkreten Hinweis auf Rechtsverstöße nicht zumutbar. Bei Bekanntwerden von Rechtsverstößen werden entsprechende Links umgehend entfernt.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">5. Haftungsbeschränkung (§ 521 BGB analog)</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Soweit der Dienst unentgeltlich zur Verfügung gestellt wird, haftet der Anbieter nur für Vorsatz und grobe Fahrlässigkeit. Die Haftung für leichte Fahrlässigkeit sowie für mittelbare Schäden, entgangenen Gewinn oder Datenverlust wird — soweit gesetzlich zulässig — ausgeschlossen.</p>
+
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">6. Urheberrecht</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Die zitierten Quellen (DNQP, RKI, AWMF, Cochrane, G-BA u.a.) stehen unter den jeweiligen Urheberrechten ihrer Herausgeber. APF·Monitor gibt Inhalte zusammenfassend und interpretierend wieder; dies stellt keine Verletzung fremder Urheberrechte dar, soweit die Grenzen des Zitatrechts (§ 51 UrhG) eingehalten werden.</p>
+
+<p style="color:#444;font-size:.56rem;margin-top:1.4rem;border-top:1px solid #1e1e1a;padding-top:.9rem;">Dieser Haftungsausschluss ist integraler Bestandteil des APF·Monitor-Dienstes. Durch die Nutzung des Dienstes akzeptiert der Nutzer diese Bedingungen ausdrücklich.</p>`
+  }
+};
+
+function openLegal(key) {
+  const content = LEGAL_CONTENT[key];
+  if (!content) return;
+  document.getElementById('legal-modal-title').textContent = content.title;
+  document.getElementById('legal-modal-body').innerHTML = content.html;
+  document.getElementById('legal-overlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeLegal() {
+  document.getElementById('legal-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderSidebar();
   checkAutoGenerate();
    if(window.speechSynthesis) window.speechSynthesis.getVoices();
-   // Hinweis wenn auf HTTP/localhost
    if(location.protocol!=='https:' && (localStorage.getItem('apf_el_api_key')||'').length>5){
      setTimeout(()=>notify(
        'GitHub Pages öffnen',
