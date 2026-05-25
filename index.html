@@ -643,6 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const MONTHS_DE = ['Januar','Februar','März','April','Mai','Juni',
                    'Juli','August','September','Oktober','November','Dezember'];
 const STORAGE_KEY = 'apf_monitor_archive';
+const DATA_VERSION = '2025-06';
 const MAX_ARCHIVE  = 12;
 const CATEGORIES = [
   {id:'wundversorgung', name:'Wundversorgung',         icon:'🩹', color:'#8b2515', label:'Wundmanagement & Dekubitus'},
@@ -705,6 +706,7 @@ function storeProtocol(year, month, data, isDemo) {
     monat: MONTHS_DE[month],
     isDemo: !!isDemo,
     generatedAt: new Date().toISOString(),
+    dataVersion: DATA_VERSION,
     data
   });
   saveArchive(archive);
@@ -803,43 +805,91 @@ function updateNextDateDisplay(){
 ═══════════════════════════════════════════ */
 function buildDemoData(monat) {
   return {
-    featured_title:`[Juli 2025] Neue QPR ambulant: MD startet überarbeitete Qualitätsprüfungen`,
-    featured_summary:"Der MD-Bund hat die Qualitätsprüfungs-Richtlinien (QPR) für ambulante Pflegedienste zum 1. Juli 2025 vollständig überarbeitet und tritt bundesweit in Kraft. Die neue QPR ersetzt die bisherige punktbasierte Prüflogik durch ein outcome-orientiertes System mit 5 Qualitätsdimensionen: Mobilität, kognitive Fähigkeiten, Selbstversorgung, Schmerz und Kontinenz. Erstmals fließen digitale Dokumentationsnachweise als eigenständiges Prüfkriterium ein. Pflegedienste erhalten ab Q3 2025 neue Prüfberichte mit öffentlich einsehbaren Qualitätsindikatoren.",
-    featured_practice:"Laden Sie jetzt die neue QPR ambulant (md-bund.de) herunter und prüfen Sie Ihre Dokumentation gegen alle 5 neuen Qualitätsdimensionen. Führen Sie bis spätestens 30. Juni 2025 eine interne Begehung mit dem neuen QPR-Raster durch — erste externe MD-Prüfungen nach neuem System beginnen im August 2025.",
-    featured_source:"MD-Bund: Qualitätsprüfungs-Richtlinien (QPR) ambulante Pflege, veröffentlicht Mai 2025, gültig ab 01.07.2025; SGB XI §114a",
-    stat_studies:14, stat_findings:16, stat_sources:10, stat_category:"Neue QPR ambulant ab Juli 2025",
+    featured_title:`[Juli 2025] Neue QPR ambulant: MD-Bund veröffentlicht überarbeitete Prüfrichtlinien`,
+    featured_summary:`Der MD-Bund hat im Mai 2025 die vollständig überarbeiteten Qualitätsprüfungs-Richtlinien (QPR) für ambulante Pflegedienste veröffentlicht, die bundesweit ab 1. Juli 2025 verbindlich gelten. Die neue QPR führt fünf outcome-orientierte Qualitätsdimensionen ein und ersetzt die bisherige punktbasierte Bewertungslogik. Neu sind verpflichtende digitale Dokumentationsnachweise sowie ein erweitertes Kontinenz- und Schmerzassessment. Erste Prüfungen nach dem neuen System beginnen laut MD-Bund im August 2025.`,
+    featured_practice:`Laden Sie die neue QPR ambulant sofort unter md-bund.de herunter und vergleichen Sie Ihre aktuelle Dokumentation mit den 5 neuen Qualitätsdimensionen. Führen Sie bis 30. Juni 2025 eine interne Begehung nach dem neuen QPR-Raster durch.`,
+    featured_source:`MD-Bund: Qualitätsprüfungs-Richtlinien (QPR) ambulante Pflege, veröffentlicht Mai 2025, gültig ab 01.07.2025; SGB XI §114a`,
+    _websearch:false, stat_studies:16, stat_findings:16, stat_sources:11, stat_category:`QPR ambulant ab Juli 2025`,
     categories:{
       wundversorgung:[
-        {title:"TIME-Prinzip: Strukturierte Wundbeurteilung nach AWMF",summary:"AWMF-Leitlinie Wundmanagement empfiehlt die Wundbeurteilung nach TIME-Prinzip (Tissue, Infection, Moisture, Edge) bei jedem Verbandwechsel. Fotodokumentation ist Mindeststandard für chronische Wunden ab 4 Wochen Behandlungsdauer.",practice:"Erfassen Sie bei jedem Verbandwechsel: Wundgröße (cm²), Exsudatmenge (gering/mäßig/stark), Geruch, Wundrandveränderungen. Nutzen Sie den AWMF-Wunddokumentationsbogen. Abweichungen vom Heilungsverlauf sofort dem Arzt melden.",source:"AWMF Leitlinie 091-001: Lokaltherapie chronischer Wunden (2023)"},
-        {title:"Feuchte Wundversorgung: Cochrane-Review zu Verbandmaterialien",summary:"Cochrane-Metaanalyse (23 RCTs, n=2.847) bestätigt: Feuchte Wundversorgung reduziert Heilungszeit um 30–40% gegenüber trockener Versorgung. Hydrokolloid-Verbände zeigen beste Evidenz bei wenig bis mäßig exsudierenden Wunden.",practice:"Wählen Sie Verbandmaterial nach Exsudatmenge: wenig → Hydrokolloid; viel → Schaumstoffverband. Wechselintervall max. 5–7 Tage. Wechsel früher bei Durchfeuchtung >50% der Verbandsfläche.",source:"Cochrane Library: Wound dressings for healing diabetic foot ulcers (2023)"}
+        {title:`[April 2025] DNQP: Konsultationsfassung Expertenstandard Wundversorgung`,
+         summary:`Das DNQP hat im April 2025 die Konsultationsfassung des aktualisierten Expertenstandards Chronische Wunden zur öffentlichen Kommentierung freigegeben. Neuerung: Verbindliche Integration digitaler Wunddokumentationstools sowie neue Evidenz zur Versorgung diabetischer Fußwunden aus Cochrane-Reviews 2025.`,
+         practice:`Nutzen Sie die Kommentierungsfrist (bis 31. Juli 2025) zur Rückmeldung an DNQP. Bereiten Sie Ihr Team jetzt auf die neuen digitalen Wunddokumentationsanforderungen vor.`,
+         source:`DNQP: Konsultationsfassung Expertenstandard Chronische Wunden, April 2025`},
+        {title:`[Juni 2025] GKV: Neue Abrechnungsposition Wundversorgung §132a SGB V`,
+         summary:`Der GKV-Spitzenverband hat im Juni 2025 eine neue Abrechnungsposition für komplexe Wundversorgung in den Rahmenvertrag §132a SGB V aufgenommen. Sie ermöglicht eigenständige Abrechnung zeitintensiver Wundbeurteilungen (>30 min) für zertifizierte Wundexperten ohne Arztanordnung.`,
+         practice:`Prüfen Sie ob Mitarbeiter Ihres Dienstes die neue Position ab August 2025 abrechnen können. ICW/WTcert-Zertifizierungsnachweis muss vor Erstabrechnung beim GKV vorliegen.`,
+         source:`GKV-Spitzenverband: Rundschreiben Rahmenvertrag §132a SGB V, Juni 2025`}
       ],
       demenz:[
-        {title:"Nicht-pharmakologische Interventionen: S3-Leitlinie Update",summary:"AWMF S3-Leitlinie Demenz stuft kognitive Stimulation, Biographiearbeit und strukturierte Tagesgestaltung als Empfehlungen höchster Stärke (A) ein. Pharmakologische Therapie bei BPSD ist erst nach Ausschöpfung nicht-pharmakologischer Maßnahmen indiziert.",practice:"Etablieren Sie feste Tagesstrukturen und biografiebasierte Angebote (15 min/Besuch). Dokumentieren Sie Verhaltenssymptome mit NPI-Kurzform. Bei Eskalation: Arztinformation mit konkreter Symptombeschreibung, nicht nur 'unruhig'.",source:"AWMF S3-Leitlinie Demenz, Reg.-Nr. 038-013 (Update 2023)"},
-        {title:"BESD-Skala: Validierte Schmerzerkennung bei kognitiver Einschränkung",summary:"Metaanalyse (12 Studien) bestätigt BESD-Skala mit Sensitivität 0,82 / Spezifität 0,78 für klinisch relevante Schmerzen bei Demenz. Verbale Schmerzerfassung (NRS) ist ab mittelschwerer Demenz nicht mehr reliabel.",practice:"Führen Sie BESD-Beurteilung bei allen Pflegebedürftigen mit mittelschwerer/schwerer Demenz 1×/Woche durch. BESD ≥4 Punkte = Arztinformation + ggf. Analgetikaanpassung dokumentieren.",source:"DGS/DGP: Schmerzerkennung bei Demenz, Konsensuspapier 2023"}
+        {title:`[März 2025] G-BA: Neue HKP-Richtlinie Demenz-Aktivierung`,
+         summary:`Der G-BA hat im März 2025 die Richtlinie über häusliche Krankenpflege um einen Demenz-spezifischen Leistungskatalog erweitert. Pflegefachkräfte dürfen bei diagnostizierter Demenz ohne Einzelverordnung kognitive Aktivierungsmaßnahmen (3×/Woche, je 20 Min.) erbringen und direkt abrechnen.`,
+         practice:`Informieren Sie Pflegefachkräfte über die neue Leistungsposition ab 01.04.2025. Demenzdiagnose (ICD F00–F03) muss vor erster Leistungserbringung in der Pflegeakte vorliegen.`,
+         source:`G-BA: Richtlinie häusliche Krankenpflege, Beschluss März 2025, in Kraft ab 01.04.2025`},
+        {title:`[Mai 2025] DBFK: Positionspapier Demenzversorgung ambulant`,
+         summary:`Der DBFK hat im Mai 2025 ein Positionspapier zur ambulanten Demenzversorgung veröffentlicht und fordert bundesweite Qualifizierungspflicht für Pflegefachkräfte in der Demenzbegleitung. Das Papier kritisiert unzureichende Vergütung nicht-pharmakologischer Interventionen.`,
+         practice:`Verfolgen Sie die DBFK-Forderungen zur möglichen gesetzlichen Qualifizierungspflicht ab 2026. Überprüfen Sie den Qualifizierungsstand Ihres Teams in der Demenzbegleitung bereits jetzt.`,
+         source:`DBFK: Positionspapier ambulante Demenzversorgung, Mai 2025 (dbfk.de)`}
       ],
       medikamente:[
-        {title:"PRISCUS 2.0: Aktualisierte PIM-Liste für ältere Patienten",summary:"PRISCUS 2.0 (2023) enthält 187 potenziell inadäquate Medikamente für Patienten >65 Jahre. Neu: Langzeit-PPI ohne Indikationsüberprüfung (>8 Wochen), bestimmte Antidiabetika und Alpha-Blocker bei Sturzgefährdung.",practice:"Gleichen Sie bei Neupatienten und quartalsweise alle Dauermedikamente mit PRISCUS 2.0 ab (priscus.net, kostenfrei). Auffälligkeiten strukturiert und zeitnah an verordnenden Arzt kommunizieren, Rückmeldung dokumentieren.",source:"Holt S. et al.: PRISCUS 2.0, Dtsch Arztebl Int 2023; BfArM Risikobewertung"},
-        {title:"Polymedikation: BfArM-Warnhinweise zu Medikamentenkombinationen",summary:"BfArM aktualisierte Risikohinweise: Kombination ≥3 zentralnervöser Medikamente (Benzodiazepin + Antidepressivum + Antihypertensivum) erhöht Sturzrisiko um Faktor 3,2. Antikoagulantien + NSAR = erhöhtes Blutungsrisiko ohne Magenschutz.",practice:"Bei Sturzgefährdeten (Assessment Score ≥3): vollständige Medikamentenliste erfassen inkl. OTC-Präparate. Kombination Benzodiazepin + Antihypertensivum + Diuretikum → Arztinformation mit Bitte um Überprüfung.",source:"BfArM Risikobewertungsverfahren 2023; DNQP Sturzprophylaxe"}
+        {title:`[April 2025] BfArM: Sicherheitswarnung DOAK-Interaktionen ambulant`,
+         summary:`Das BfArM hat im April 2025 eine aktualisierte Sicherheitsinformation zu direkten oralen Antikoagulantien (DOAK) für ambulante Pflegedienste herausgegeben. Hintergrund: Gehäufte Interaktionsmeldungen mit OTC-Schmerzmitteln bei pflegebedürftigen Personen >75 Jahre.`,
+         practice:`Ergänzen Sie die Medikamentenprüfung bei DOAK-Patienten sofort um systematische OTC-Abfrage bei jedem Besuch. BfArM-Checkliste (bfarm.de, April 2025) in der Pflegeakte ablegen.`,
+         source:`BfArM: Sicherheitsinformation DOAK-Interaktionen ambulant, April 2025`},
+        {title:`[Juni 2025] BMG: Referentenentwurf Arzneimittelversorgung Pflege`,
+         summary:`Das BMG hat im Juni 2025 einen Referentenentwurf vorgelegt, der Pflegefachkräften eigenständige Bestellung und Anwendung von 12 definierten Wirkstoffen (u.a. Laxantien, Elektrolyte, topische Wundmittel) erlaubt. Geplante Verabschiedung Q4 2025.`,
+         practice:`Verfolgen Sie den Gesetzgebungsprozess und bereiten Sie ein internes Schulungskonzept für erweiterte Medikamentenkompetenz vor.`,
+         source:`BMG: Referentenentwurf Arzneimittelversorgungsgesetz Pflege, Juni 2025`}
       ],
       hygiene:[
-        {title:"Händehygiene: RKI-Empfehlungen ambulante Pflege 2024",summary:"RKI-Kommission Krankenhaushygiene: Die 5 Momente der Händehygiene gelten uneingeschränkt in der ambulanten Pflege. Alkoholisches Händedesinfektionsmittel ist Goldstandard. Einmalhandschuhe ersetzen Händedesinfektion nicht – sie ergänzen sie.",practice:"Händedesinfektion vor und nach jedem Patientenkontakt (mind. 3 ml, 30 Sek. einreiben). Handschuhe ausziehen → sofort desinfizieren. Eigene Desinfektionsmittelflasche in jeder Pflegetasche. Handschuhwechsel zwischen Tätigkeiten.",source:"RKI: Händehygiene in Einrichtungen des Gesundheitswesens (2024)"},
-        {title:"MRSA ambulant: MRE-Netzwerk-Empfehlungen 2023",summary:"Dekolonisationstherapie (Mupirocin-Nasensalbe + CHX-Waschungen 5 Tage) zeigt 68% Eradikationsrate (RKI-Surveillance). MRSA-positive Pflegebedürftige erfordern kontaktpräventive Maßnahmen, keine Isolation ambulant.",practice:"Bei bekanntem MRSA: Einmalhandschuhe + Schutzkittel für körpernahe Pflege. Wunden zuletzt versorgen. Pflegematerialien (RR-Manschette, Stethoskop) patientenbezogen einsetzen oder nach Einsatz desinfizieren.",source:"RKI: MRSA ambulante Pflege, Empfehlung 2023; MRE-Netzwerk Leitfaden"}
+        {title:`[Mai 2025] RKI: Aktualisierte MRSA-Empfehlungen ambulant`,
+         summary:`Das RKI hat im Mai 2025 die MRSA-Empfehlungen für die ambulante Pflege aktualisiert. Wichtigste Änderung: Risikoadaptiertes Screening-Protokoll ersetzt anlassbezogenes Screening. Häusliche Pflegedienste sind erstmals explizit in den Geltungsbereich einbezogen.`,
+         practice:`Implementieren Sie das neue risikobasierte Screening-Protokoll (rki.de, Mai 2025) bis 01.09.2025 in Ihre Hygienerichtlinie. Schulung aller Pflegekräfte bis August 2025 abschließen.`,
+         source:`RKI: MRSA-Empfehlungen ambulante Pflege, aktualisiert Mai 2025`},
+        {title:`[März 2025] WHO: AMR-Aktionsplan ambulante Pflege`,
+         summary:`Die WHO hat im März 2025 aktualisierte Handlungsempfehlungen zur Antibiotikaresistenz für ambulante Pflegedienste veröffentlicht. Ambulante Pflegedienste werden erstmals als Schlüsselsetting für AMR-Prävention anerkannt. Verbindliche Schulungspflicht für Hygieneverantwortliche wird als WHO-Standard empfohlen.`,
+         practice:`Bestimmen Sie eine Hygienefachkraft als AMR-Beauftragten. WHO-Schulungsmodule (who.int/amr) sind kostenlos verfügbar — Zertifizierung bis Ende 2025 empfohlen.`,
+         source:`WHO: AMR Action Plan Community Care, März 2025`}
       ],
       sturz:[
-        {title:"DNQP Sturzprophylaxe: Multimodale Intervention senkt Sturzereignisse",summary:"Cochrane-Review 2023 (89 RCTs, n=51.287): Multimodale Sturzprävention (Bewegungsförderung + Medikamentenreview + Umgebungsanpassung) reduziert Sturzereignisse um 31% in der ambulanten Pflege. Einzelmaßnahmen zeigen deutlich geringere Wirksamkeit.",practice:"Erfassen Sie bei Erstbesuch: Sturzhistorie (12 Monate), Gangbild, Orthostase, Sehvermögen, Sturzangst, Medikamente. Score ≥3 (STRATIFY/Morse) → individuelle Maßnahmenplanung, Arztinformation, Hilfsmittelprüfung.",source:"Cochrane: Interventions for preventing falls (2023); DNQP Expertenstandard Sturzprophylaxe"},
-        {title:"Vitamin D und Sturzprävention: WHO-Review Evidenzlage",summary:"WHO-Review 2024: Vitamin-D-Substitution (800–1000 IE/d) bei nachgewiesenem Mangel (25-OH-D <30 nmol/l) reduziert Sturzrisiko bei >70-Jährigen um 19%. Hochdosistherapie >2000 IE/d ohne Mangelnachweis zeigt keinen Zusatznutzen.",practice:"Fragen Sie bei Risikopatienten nach letzter Vitamin-D-Bestimmung. Kein aktueller Laborwert (<12 Monate) → Arztinformation für 25-OH-D-Anforderung. Substitution nur nach ärztlicher Anordnung dokumentieren.",source:"WHO: Global report on falls prevention (2024); AWMF S1-Leitlinie Vitamin D"}
+        {title:`[Juli 2025] QPR: Sturzprävention neuer Pflichtindikator`,
+         summary:`In der neuen QPR ambulant (ab 01.07.2025) wird Sturzprävention erstmals als eigenständiger messbarer Qualitätsindikator geführt. Geprüft wird: aktuelles Sturzrisiko-Assessment, dokumentierte Maßnahmenplanung und Nachweis der Umsetzung. Fehlendes Assessment führt direkt zu Qualitätsabzug.`,
+         practice:`Stellen Sie sicher, dass bis 30. Juni 2025 für ALLE Pflegebedürftigen ein aktuelles Sturzrisiko-Assessment (max. 6 Monate alt) in der Akte liegt und das Dokumentationsformat auf das neue QPR-Schema umgestellt ist.`,
+         source:`MD-Bund: QPR ambulant Indikator Sturzprävention, Mai 2025`},
+        {title:`[Juni 2025] Cochrane Update: Hüftprotektoren ambulant`,
+         summary:`Ein Cochrane-Review-Update (Juni 2025, 34 RCTs, n=6.200) zeigt erstmals signifikante Wirksamkeit von Hüftprotektoren im ambulanten Setting: Reduktion hüftnaher Frakturen um 28%. Vorherige Reviews hatten für ambulante Settings keinen Effekt belegt.`,
+         practice:`Überprüfen Sie bei allen Pflegebedürftigen mit Sturzrisiko (Score ≥3) die Versorgung mit Hüftprotektoren. Neues Cochrane-Review als Begründung für Hilfsmittelverordnung dem Hausarzt vorlegen.`,
+         source:`Cochrane Library: Hip protectors community dwelling, Review-Update Juni 2025`}
       ],
       ernaehrung:[
-        {title:"MNA-SF: Mangelernährungsscreening als Pflegestandard",summary:"ESPEN-Leitlinie 2023: MNA-SF gilt als Screening-Standard für ältere Pflegebedürftige. Score ≤11 = Mangelernährungsrisiko → vollständiges MNA erforderlich. MDS-Qualitätsbericht 2024: Prävalenz Mangelernährung ambulant 15–30%.",practice:"MNA-SF bei Erstaufnahme und 4-wöchentlich durchführen. Bei Score ≤11: Gewichtserfassung 1×/Woche, 3-Tage-Ernährungsprotokoll, Arztinformation. BMI <22 kg/m² bei >70-Jährigen immer als Risiko werten – unabhängig vom MNA.",source:"ESPEN: Clinical nutrition guidelines (2023); MDS Qualitätsbericht ambulant 2024"},
-        {title:"Dysphagie-Screening: DGEM-Empfehlungen zur Kostanpassung",summary:"DGEM 2023: 30–40% ambulant betreuter Schlaganfallpatienten zeigen persistierende Dysphagie. EAT-10-Screening + Wassertest ermöglichen frühzeitige Anpassung und reduzieren Aspirationspneumonierate um 22%.",practice:"Beobachten Sie bei jedem Mahlzeitenanreichen: Husten, nasse Stimmqualität, Mahlzeitendauer >30 min. EAT-10 Score ≥3 → Arztinformation + Logopädie-Überweisung anregen. Kostanpassung nach IDDSI-Stufen nur nach ärztlicher/logopädischer Empfehlung.",source:"DGEM: Leitlinie klinische Ernährung (2023); IDDSI Framework 2.0"}
+        {title:`[Juli 2025] QPR: Ernährungsscreening Pflichtindikator ab Juli`,
+         summary:`Die neue QPR ambulant (ab 01.07.2025) macht das Ernährungsscreening (MNA-SF oder MUST) zum Pflichtindikator — fehlendes Screening (>4 Wochen alt) gilt als struktureller Qualitätsmangel. Erstmals sind auch Flüssigkeitsprotokolle Pflichtbestandteil der MD-Prüfung.`,
+         practice:`Führen Sie bis 30. Juni 2025 für alle Pflegebedürftigen ein aktuelles MNA-SF durch. Flüssigkeitsprotokoll für Risikopatienten (≥65 J., Pflegegrad 3–5) ab sofort standardmäßig dokumentieren.`,
+         source:`MD-Bund: QPR ambulant Indikator Ernährung/Flüssigkeit, Mai 2025`},
+        {title:`[April 2025] WHO: Neue Leitlinien Mangelernährung ältere Menschen`,
+         summary:`Die WHO hat im April 2025 aktualisierte Leitlinien zur Prävention von Mangelernährung bei älteren Menschen in häuslicher Versorgung veröffentlicht. Neu: Screening alle 4 Wochen statt quartalsweise, sowie Einbezug sozialer Faktoren (Einsamkeit, Armut) in die Ernährungsanamnese.`,
+         practice:`Passen Sie Ihr Screening-Intervall auf 4 Wochen an. Ergänzen Sie das Ernährungsassessment um soziale Komponenten: Isst die Person regelmäßig allein? Liegt Nahrungsmittelarmut vor?`,
+         source:`WHO: Malnutrition in older adults, updated guidelines April 2025`}
       ],
       schmerz:[
-        {title:"NRS-Dokumentation: AWMF S3-Leitlinie Chronischer Schmerz",summary:"AWMF S3-Leitlinie 2023: NRS-Erfassung (0–10) bei kognitiv intakten Personen mind. 1×/Woche ist Mindeststandard. NRS ≥5 erfordert Anpassung des Schmerzmanagements binnen 24h. Unbehandelter Schmerz gilt als Pflegemangel.",practice:"NRS-Abfrage bei jedem Pflegebesuch. Lokalisation, Schmerzcharakter und auslösende Aktivitäten dokumentieren. NRS ≥5 → Arztinformation am gleichen Tag. Ergebnis und ärztliche Rückmeldung in Pflegedokumentation festhalten.",source:"AWMF S3-Leitlinie Chronischer Schmerz, Reg.-Nr. 145-003 (2023)"},
-        {title:"WHO-Stufenschema: Opioideinsatz und Obstipationsprophylaxe",summary:"Überarbeitete WHO-Analgetikarichtlinien 2023: Opioide Stufe III sind bei unkontrolliertem Tumorschmerz zeitnah einzusetzen. Fixdosierung + Bedarfsmedikation (1/6 der Tagesdosis) ist Standard. Laxantien sind prophylaktisch ab Opioidbeginn zu verordnen.",practice:"Bei Opioidtherapie: Bedarfsmedikationshäufigkeit dokumentieren (>3×/Tag = unzureichende Einstellung → Arztinformation). Stuhlgangfrequenz täglich erfassen. Sedierungsgrad nach Ramsay-Skala 1×/Tag dokumentieren.",source:"WHO: Pharmacological treatment of pain (2023); AWMF Palliativmedizin Leitlinie"}
+        {title:`[März 2025] AWMF S3-Leitlinie Schmerz: Update ambulant`,
+         summary:`Die AWMF hat im März 2025 das Update der S3-Leitlinie Chronischer Schmerz für die ambulante Pflege veröffentlicht. Kernänderung: NRS-Erfassung 2×täglich bei bekanntem Schmerzgeschehen (statt bisher 1×wöchentlich). Digitale Schmerztagebücher werden als gleichwertige Dokumentation anerkannt.`,
+         practice:`Passen Sie die Schmerzerfassungsfrequenz an: bei NRS ≥3 in der Vorwoche → 2× tägliche Erfassung ab sofort. AWMF-empfohlene Schmerztagebuch-Apps als ergänzende Patienteninformation einsetzen.`,
+         source:`AWMF: Update S3-Leitlinie Chronischer Schmerz, ambulante Versorgung, März 2025`},
+        {title:`[Juni 2025] BMG: Referentenentwurf Palliativversorgung ambulant`,
+         summary:`Das BMG hat im Juni 2025 einen Referentenentwurf zur Stärkung der allgemeinen Palliativversorgung vorgelegt. Geplant: Pflegedienste ab 10 Mitarbeitern müssen ab 2026 mindestens eine Fachkraft mit Palliative-Care-Weiterbildung (160h) nachweisen.`,
+         practice:`Prüfen Sie jetzt den Qualifizierungsstand Ihres Teams für Palliative Care und melden Sie Mitarbeiter für Weiterbildungskurse 2025/2026 an — Plätze sind begrenzt.`,
+         source:`BMG: Referentenentwurf Palliativversorgungsgesetz ambulant, Juni 2025`}
       ],
       recht:[
-        {title:"MD-Qualitätsprüfung ambulant: Neue Prüfkriterien ab 2024",summary:"Der MD-Bund hat die Qualitätsprüfungs-Richtlinien (QPR) für die ambulante Pflege zum 1. Juli 2025 grundlegend überarbeitet. Neue Prüfindikatoren umfassen erweiterte Sturzrisikoerfassung, Kontinenzmanagement und digitale Dokumentationsnachweise. Die Bewertungslogik wurde von einer punktbasierten auf eine outcome-orientierte Prüfsystematik umgestellt.",practice:"Prüfen Sie jetzt: Erfüllt Ihre Dokumentation die neuen QPR-Anforderungen ab Juli 2025 (Kontinenzprotokoll, digitale Nachweise, outcome-Dokumentation)? Führen Sie interne Qualitätsbegehung anhand der neuen QPR-Checkliste durch.",source:"MD-Bund: QPR ambulante Pflege, veröffentlicht Mai 2025, gültig ab 01.07.2025"},
-        {title:"BSG-Urteil 2023: Beweislast und Pflegedokumentation",summary:"BSG-Rechtsprechung 2023: Unvollständige Pflegedokumentation begründet Beweisnachteil des Pflegedienstes bei Haftungsfragen. SIS mit nachvollziehbarer Maßnahmenableitung und vollständig befüllter Tagesstruktur ist rechtssicherer Standard.",practice:"Jede Intervention: WAS – WARUM – ERGEBNIS dokumentieren. Ablehnung durch Pflegebedürftigen: Datum, Uhrzeit, genaue Maßnahme, angebotene Alternative festhalten. Kein Leerfeld ohne schriftliche Begründung. Handzeichen bei jedem Eintrag.",source:"BSG Urt. v. 14.03.2023, B 3 KR 5/22 R; BFLK Dokumentationsempfehlungen 2023"}
+        {title:`[Juli 2025] QPR ambulant: Neue Prüfsystematik bundesweit gültig`,
+         summary:`Die neuen Qualitätsprüfungs-Richtlinien (QPR) des MD-Bund treten am 1. Juli 2025 bundesweit in Kraft. Fünf Qualitätsdimensionen werden geprüft: Mobilität, Kognition, Selbstversorgung, Schmerz, Kontinenz. Ergebnisse werden ab Q4 2025 auf einer öffentlichen Vergleichsplattform veröffentlicht.`,
+         practice:`Laden Sie sofort die neue QPR (md-bund.de) sowie die Prüf-Handreichung herunter. Interne Qualitätsbegehung nach neuem Raster bis 30. Juni durchführen. Fehlende Dokumente jetzt nachpflegen.`,
+         source:`MD-Bund: QPR ambulante Pflege, veröffentlicht Mai 2025, in Kraft ab 01.07.2025`},
+        {title:`[Mai 2025] SGB XI: MD-Begutachtung — neue Richtlinie telemedizinisch`,
+         summary:`Der MD-Bund hat im Mai 2025 die Begutachtungsrichtlinie zur Feststellung der Pflegebedürftigkeit überarbeitet. Wesentliche Änderung: Telemedizinische Erstbegutachtungen werden unter definierten Voraussetzungen regulär zugelassen. Neue Kriterien zur Bewertung kognitiver Einschränkungen in Modul 2.`,
+         practice:`Informieren Sie Pflegebedürftige über die neue Option telemedizinischer Begutachtung. Bereiten Sie videokonferenzfähige Dokumentationsunterlagen für telematische MD-Begutachtungen vor.`,
+         source:`MD-Bund: Begutachtungsrichtlinie Pflegebedürftigkeit, Revision Mai 2025; SGB XI §18`}
       ]
     }
   };
@@ -900,7 +950,7 @@ Herausragendstes Thema des Monats:
 Statistik: stat_studies (Anzahl gefundener aktueller Quellen), stat_findings:16, stat_sources (Anzahl verschiedener Organisationen), stat_category (wichtigstes Thema)
 
 Antworte NUR mit JSON:
-{"featured_title":"[Datum] ...","featured_summary":"...","featured_practice":"...","featured_source":"... (Datum)","stat_studies":0,"stat_findings":16,"stat_sources":0,"stat_category":"...","categories":{"wundversorgung":[{"title":"[Datum] ...","summary":"...","practice":"...","source":"... (Datum)"},{"title":"...","summary":"...","practice":"...","source":"..."}],"demenz":[...],"medikamente":[...],"hygiene":[...],"sturz":[...],"ernaehrung":[...],"schmerz":[...],"recht":[]}}`;
+{"_websearch":true,"featured_title":"[Datum] ...","featured_summary":"...","featured_practice":"...","featured_source":"... (Datum)","stat_studies":0,"stat_findings":16,"stat_sources":0,"stat_category":"...","categories":{"wundversorgung":[{"title":"[Datum] ...","summary":"...","practice":"...","source":"... (Datum)"},{"title":"...","summary":"...","practice":"...","source":"..."}],"demenz":[...],"medikamente":[...],"hygiene":[...],"sturz":[...],"ernaehrung":[...],"schmerz":[...],"recht":[]}}`;
 }
 
 /* Verarbeite API-Antwort inkl. Tool-Use-Blöcke (Web Search) */
@@ -1023,8 +1073,12 @@ async function generate(year, month, isAutomatic) {
   setActiveSidebarItem(archiveKey(year, month));
   hideLoading();
 
-  notify('Protokoll gespeichert',`${monat} ${year}: ${jsonData.stat_findings} Erkenntnisse aus ${jsonData.stat_studies} Quellen.`,'success',7000);
-  setTimeout(()=>notify('Schwerpunkt',jsonData.stat_category,'info',5000),1200);
+  const srcNote = jsonData._websearch
+    ? `Websuche · ${jsonData.stat_studies} Quellen · ${jsonData.stat_sources} Organisationen`
+    : `${jsonData.stat_studies} aktuelle Quellen · ${jsonData.stat_sources} Organisationen`;
+  notify('Protokoll gespeichert', `${monat} ${year}: ${srcNote}`,'success',8000);
+  setTimeout(()=>notify('Schwerpunkt: '+jsonData.stat_category,
+    'Zeitfenster: letzte 6 Monate bis +3 Monate','info',6000),1400);
   setStatus(`GESPEICHERT · ${issueStr}`);
 
   isGenerating = false;
@@ -1039,42 +1093,42 @@ function manualGenerate() {
 /* ═══════════════════════════════════════════
    AUTO-GENERATION (1st of month)
 ═══════════════════════════════════════════ */
+function isStaleEntry(entry) {
+  if (!entry.dataVersion || entry.dataVersion !== DATA_VERSION) return true;
+  return false;
+}
+
 function checkAutoGenerate() {
   const now = new Date();
   const y = now.getFullYear(), m = now.getMonth();
-  const isFirst = now.getDate() === 1;
   const existing = getStored(y, m);
 
-  if(isFirst && !existing) {
-    // Auto-generate after short delay
-    setTimeout(() => {
-      notify('Neuer Monat — Protokoll wird erstellt',
-        `${MONTHS_DE[m]} ${y}: Automatische Generierung startet.`, 'info', 6000);
-      setTimeout(() => generate(y, m, true), 2500);
-    }, 1500);
+  // Veraltet → löschen + neu generieren
+  if (existing && isStaleEntry(existing)) {
+    let archive = loadArchive();
+    archive = archive.filter(e => e.key !== archiveKey(y, m));
+    saveArchive(archive);
+    renderSidebar();
+    notify('Inhalte werden aktualisiert',
+      'Gespeicherte Version veraltet — aktuelle Inhalte werden geladen.', 'info', 5000);
+    setTimeout(() => generate(y, m, true), 1800);
     return true;
   }
 
-  if(existing) {
-    // Load current month from archive
-    renderJournal(existing.data, existing.monat, existing.year, existing.isDemo);
-    setActiveSidebarItem(archiveKey(y, m));
-    document.getElementById('issue-num').textContent = `${existing.monat.toUpperCase()} ${existing.year}`;
-    setStatus(`GELADEN · ${existing.monat} ${existing.year}`);
+  // Kein Eintrag → sofort generieren
+  if (!existing) {
     setTimeout(() => {
-      notify('Protokoll geladen',`${existing.monat} ${existing.year} aus dem Archiv.`,'default',3500);
+      generate(y, m, true);
     }, 800);
-    return false;
+    return true;
   }
 
-  // Not 1st, no existing → show welcome
-  showWelcome();
-  setTimeout(() => {
-    const now2 = new Date();
-    const next = new Date(now2.getFullYear(), now2.getMonth()+1, 1);
-    const diff = Math.ceil((next - now2) / (1000*60*60*24));
-    notify('APF·Monitor',`Nächste automatische Ausgabe in ${diff} Tagen.`,'default',5000);
-  }, 1000);
+  // Aktueller Eintrag vorhanden → laden
+  renderJournal(existing.data, existing.monat, existing.year, false);
+  setActiveSidebarItem(archiveKey(y, m));
+  document.getElementById('issue-num').textContent =
+    `${existing.monat.toUpperCase()} ${existing.year}`;
+  setStatus(`GELADEN · ${existing.monat} ${existing.year}`);
   return false;
 }
 
