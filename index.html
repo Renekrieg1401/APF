@@ -224,27 +224,7 @@ button, a, [role="button"] {
   font-size:.55rem;letter-spacing:.08em;
   text-transform:uppercase;color:#555;margin-top:.15rem;
 }
-.sidebar-list{flex:1;padding:.4rem 0}
-.sidebar-item{
-  display:block;width:100%;text-align:left;
-  background:none;border:none;
-  color:var(--rule);
-  font-family:'JetBrains Mono',monospace;
-  font-size:.66rem;letter-spacing:.04em;
-  padding:.65rem 1.1rem;cursor:pointer;
-  transition:background .12s,color .12s;
-  border-left:3px solid transparent;
-  line-height:1.4;min-height:44px;
-  -webkit-tap-highlight-color:transparent;
-}
-.sidebar-item:hover,.sidebar-item:active{background:#1e1e1a;color:var(--paper)}
-.sidebar-item.active{background:#1e1e1a;color:var(--paper);border-left-color:var(--accent)}
-.si-month{display:block;font-size:.7rem;color:inherit}
-.si-meta{display:block;font-size:.54rem;color:#444;margin-top:.1rem}
-.sidebar-item.active .si-meta{color:#666}
-.si-dot{display:inline-block;width:5px;height:5px;background:var(--accent);border-radius:50%;margin-right:.35rem;vertical-align:middle}
-
-.sidebar-empty{padding:1.1rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#3a3a36;letter-spacing:.04em;line-height:1.7;font-style:italic}
+.sidebar-list{flex:1;padding:1.1rem;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--rule);line-height:1.8}
 .sidebar-footer{padding:.65rem 1.1rem;border-top:1px solid #1e1e1a;font-family:'JetBrains Mono',monospace;font-size:.55rem;color:#2a2a26;letter-spacing:.04em;line-height:1.7}
 
 /* ── MAIN CONTENT ── */
@@ -254,40 +234,16 @@ button, a, [role="button"] {
   padding:clamp(1rem,3vw,2rem) clamp(.9rem,3vw,2rem) 4rem;
 }
 
-/* ── LOADING ── */
-.loading-screen{display:none;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1.5rem;gap:1.2rem}
-.loading-screen.active{display:flex}
-.spinner{width:40px;height:40px;border:3px solid var(--rule);border-top-color:var(--accent);border-radius:50%;animation:spin .85s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-family:'Playfair Display',serif;font-size:1rem;color:var(--body-text);font-style:italic;text-align:center}
-.loading-sub{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.09em;text-align:center}
-
-/* ── WELCOME ── */
-#welcome{
-  text-align:center;
-  padding:clamp(2rem,5vw,4rem) clamp(1rem,4vw,2rem);
-  border:1px solid var(--rule);background:var(--card-bg);margin:1.5rem 0;
-}
-#welcome h2{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,4vw,1.8rem);font-weight:700;margin-bottom:.55rem}
-#welcome p{color:var(--body-text);max-width:420px;margin:0 auto 1.3rem;font-size:clamp(.8rem,2vw,.88rem);line-height:1.65}
-.next-date{
+/* ── STATIC EDITION NOTICE ── */
+.static-notice{
   font-family:'JetBrains Mono',monospace;
-  font-size:clamp(.62rem,1.5vw,.72rem);
-  letter-spacing:.05em;color:var(--accent);
-  border:1px solid var(--accent);
-  display:inline-block;padding:.28rem .8rem;margin-bottom:1.3rem;
-}
-.source-list{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;margin-bottom:1.8rem}
-.source-tag{
-  font-family:'JetBrains Mono',monospace;
-  font-size:clamp(.55rem,1.2vw,.62rem);
-  letter-spacing:.04em;padding:.16rem .52rem;
-  border:1px solid var(--rule);background:var(--tag-bg);color:var(--muted);
+  font-size:clamp(.58rem,1.2vw,.64rem);
+  letter-spacing:.04em;color:var(--muted);
+  border:1px solid var(--rule);background:var(--tag-bg);
+  padding:.55rem .8rem;margin-bottom:1.3rem;line-height:1.7;
 }
 
 /* ── JOURNAL ── */
-#journal-content{display:none}
-#journal-content.active{display:block}
 .edition-header{
   border-bottom:3px double var(--rule);
   padding-bottom:1rem;margin-bottom:1.8rem;
@@ -350,12 +306,6 @@ button, a, [role="button"] {
 .stat-num{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,1.8rem);font-weight:900;color:#d4a640;display:block;line-height:1}
 .stat-label{font-family:'JetBrains Mono',monospace;font-size:clamp(.52rem,.75vw,.6rem);letter-spacing:.07em;text-transform:uppercase;color:#bdb5a6;margin-top:.2rem;display:block}
 
-/* ── ERROR ── */
-.error-box{border:1.5px solid var(--accent);background:#fdf5f4;padding:1.1rem 1.5rem;display:none;margin:1.5rem 0}
-.error-box.active{display:block}
-.error-box h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:.95rem;margin-bottom:.35rem}
-.error-box p{font-size:.78rem;color:var(--muted)}
-
 /* ── NOTIFICATIONS ── */
 #notif-container{
   position:fixed;bottom:1rem;right:1rem;
@@ -403,7 +353,6 @@ button, a, [role="button"] {
   .masthead-center{padding:.7rem .75rem .55rem}
 
   .sidebar-close{display:block}
-  .btn-tts span{display:none}
 
   /* Tiles: single column */
   .tiles-grid{grid-template-columns:1fr}
@@ -569,25 +518,22 @@ document.addEventListener('DOMContentLoaded', () => {
 <header class="masthead">
   <div class="masthead-center">
     <div class="journal-title">AP<span style="color:var(--accent)">F</span><span>·</span>MONITOR</div>
-    <div class="journal-subtitle">Monatliches Evidenz-Protokoll · Ambulante Pflege</div>
+    <div class="journal-subtitle">Kuratierte Fachübersicht · Ambulante Pflege</div>
   </div>
   <div class="masthead-bottom">
     <span class="masthead-sources">Cochrane · IQWiG · AWMF · ZQP · DNQP · RKI · JBI · PubMed · BMG · MD-Bund · LIVIVO · ICN · Gesetze.de</span>
-    <span class="issue-badge" id="issue-num">— / —</span>
+    <span class="issue-badge" id="issue-num">STATISCHE AUSGABE</span>
   </div>
 </header>
 
 <!-- TOOLBAR -->
 <div class="toolbar">
-  <button class="ham-btn" id="ham-btn" onclick="toggleSidebar()" aria-label="Archiv">
+  <button class="ham-btn" id="ham-btn" onclick="toggleSidebar()" aria-label="Menü">
     <svg width="18" height="14" viewBox="0 0 18 14" fill="currentColor">
       <rect y="0" width="18" height="2" rx="1"/><rect y="6" width="14" height="2" rx="1"/><rect y="12" width="10" height="2" rx="1"/>
     </svg>
   </button>
-  <button class="btn" id="generate-btn" onclick="manualGenerate()">
-    <svg width="11" height="13" viewBox="0 0 11 13" fill="currentColor" style="margin-right:.35rem;vertical-align:-.1em"><polygon points="0,0 11,6.5 0,13"/></svg>GENERIEREN
-  </button>
-  <div id="status-bar">BEREIT</div>
+  <div id="status-bar">KEINE LIVE-RECHERCHE · STATISCHE INHALTE</div>
 </div>
 
 <!-- OVERLAY -->
@@ -600,22 +546,13 @@ document.addEventListener('DOMContentLoaded', () => {
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-head">
       <button class="sidebar-close" onclick="closeSidebar()" aria-label="Schließen">✕</button>
-      <div class="sidebar-title">Archiv</div>
-      <div class="sidebar-sub">Bis zu 12 Ausgaben</div>
+      <div class="sidebar-title">Über APF·Monitor</div>
     </div>
     <div class="sidebar-list" id="sidebar-list">
-      <div class="sidebar-empty">Noch keine gespeicherten Protokolle.</div>
+      APF·Monitor ist eine statische, redaktionell kuratierte Fachübersicht für die ambulante Pflege — keine automatisierte Recherche, keine KI-generierten Inhalte, keine externe API-Anbindung. Alle Angaben entstanden auf Basis öffentlich zugänglicher Primärquellen (DNQP, RKI, AWMF, MD-Bund u. a.), siehe Quellenangabe je Beitrag.
     </div>
     <div class="sidebar-footer">
-      APF·Monitor<br>Automatisch am 1. des Monats
-      <div style="margin-top:.9rem;display:flex;flex-direction:column;gap:.4rem">
-        <button onclick="clearAllData()" style="
-          font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.07em;
-          text-transform:uppercase;background:transparent;border:1px solid #2a2a26;
-          color:#4a1a1a;padding:.4rem .7rem;cursor:pointer;text-align:left;width:100%;
-          min-height:36px;-webkit-tap-highlight-color:transparent;
-        ">⌫ Archiv löschen</button>
-      </div>
+      APF·Monitor
       <!-- Legal Links -->
       <div style="margin-top:1.1rem;padding-top:.75rem;border-top:1px solid #1e1e1a;display:flex;flex-wrap:wrap;gap:.3rem .6rem">
         <button onclick="openLegal('impressum')" style="font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.06em;text-transform:uppercase;background:transparent;border:none;color:#333;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;">Impressum</button>
@@ -643,30 +580,6 @@ document.addEventListener('DOMContentLoaded', () => {
   <!-- MAIN -->
   <div class="main-content">
     <div class="page-wrap">
-      <div class="loading-screen" id="loading">
-        <div class="spinner"></div>
-        <div class="loading-text">Evidenzdatenbank wird ausgewertet…</div>
-        <div class="loading-sub" id="load-step">INITIALISIERUNG</div>
-      </div>
-      <div class="error-box" id="error-box">
-        <h3>⚠ Fehler bei der Generierung</h3>
-        <p id="error-msg">Unbekannter Fehler.</p>
-      </div>
-      <div id="welcome">
-        <h2>Monatliches Evidenz-Protokoll</h2>
-        <p>Das Protokoll wird automatisch am <strong>1. jedes Monats</strong> generiert und im Archiv gespeichert. Ältere Ausgaben sind in der Seitenleiste abrufbar.</p>
-        <div class="next-date" id="next-date-display">Nächste Ausgabe: —</div>
-        <div class="source-list">
-          <span class="source-tag">Cochrane DE</span><span class="source-tag">Cochrane Library</span>
-          <span class="source-tag">IQWiG</span><span class="source-tag">AWMF</span>
-          <span class="source-tag">ZQP</span><span class="source-tag">DNQP</span>
-          <span class="source-tag">RKI</span><span class="source-tag">JBI</span>
-          <span class="source-tag">PubMed</span><span class="source-tag">BMG</span>
-          <span class="source-tag">MD-Bund</span><span class="source-tag">LIVIVO</span>
-          <span class="source-tag">ICN</span><span class="source-tag">Gesetze.de</span><span class="source-tag">BAMF</span>
-        </div>
-        <button class="btn" onclick="manualGenerate()" style="font-size:.78rem;padding:.6rem 1.6rem">▶ Aktuelle Ausgabe jetzt generieren</button>
-      </div>
       <div id="journal-content"></div>
     </div>
   </div>
@@ -674,13 +587,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <script>
 /* ═══════════════════════════════════════════
-   CONSTANTS & STATE
+   CONSTANTS
 ═══════════════════════════════════════════ */
-const MONTHS_DE = ['Januar','Februar','März','April','Mai','Juni',
-                   'Juli','August','September','Oktober','November','Dezember'];
-const STORAGE_KEY = 'apf_monitor_archive';
-const DATA_VERSION = '2026-06';
-const MAX_ARCHIVE  = 12;
 const CATEGORIES = [
   {id:'wundversorgung', name:'Wundversorgung',         icon:'🩹', color:'#8b2515', label:'Wundmanagement & Dekubitus'},
   {id:'demenz',        name:'Demenz & Kognition',     icon:'🧠', color:'#1a3a5c', label:'Neurokognitive Erkrankungen'},
@@ -691,168 +599,17 @@ const CATEGORIES = [
   {id:'schmerz',       name:'Schmerzmanagement',       icon:'📊', color:'#c0534a', label:'NRS · Palliativ · Chronisch'},
   {id:'recht',         name:'Recht & Qualität',        icon:'⚖', color:'#3d5a80', label:'SGB V/XI · MD · Dokumentation'},
 ];
-let isGenerating = false;
 
 /* ═══════════════════════════════════════════
-   NOTIFICATIONS
+   STATISCHE AUSGABE (kuratiert, keine Live-Recherche)
 ═══════════════════════════════════════════ */
-function notify(title, msg, type='default', duration=5500) {
-  const icons = {default:'📋',success:'✅',info:'ℹ️',warn:'⚠️'};
-  const cont = document.getElementById('notif-container');
-  const el = document.createElement('div');
-  el.className = `notif ${type}`;
-  el.innerHTML = `<span class="notif-icon">${icons[type]||'📋'}</span>
-    <div class="notif-body"><div class="notif-title">${title}</div><div class="notif-msg">${msg}</div></div>
-    <button class="notif-close" onclick="dismissNotif(this.parentElement)">✕</button>`;
-  cont.appendChild(el);
-  if(duration>0) setTimeout(()=>dismissNotif(el), duration);
-}
-function dismissNotif(el){
-  if(!el||!el.parentElement) return;
-  el.classList.add('removing');
-  setTimeout(()=>el.remove(), 300);
-}
-
-/* ═══════════════════════════════════════════
-   STORAGE (localStorage — static hosting)
-═══════════════════════════════════════════ */
-function loadArchive() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-  catch(_) { return []; }
-}
-function saveArchive(arr) {
-  // Keep only newest MAX_ARCHIVE entries
-  const trimmed = arr.slice(0, MAX_ARCHIVE);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
-}
-function archiveKey(year, month) { return `${year}-${String(month).padStart(2,'0')}`; }
-function getStored(year, month) {
-  const key = archiveKey(year, month);
-  const archive = loadArchive();
-  return archive.find(e => e.key === key) || null;
-}
-function storeProtocol(year, month, data, isDemo) {
-  const key = archiveKey(year, month);
-  let archive = loadArchive();
-  // Remove existing entry for same month
-  archive = archive.filter(e => e.key !== key);
-  // Prepend new entry
-  archive.unshift({
-    key, year, month,
-    monat: MONTHS_DE[month],
-    isDemo: !!isDemo,
-    generatedAt: new Date().toISOString(),
-    dataVersion: DATA_VERSION,
-    data
-  });
-  saveArchive(archive);
-  renderSidebar();
-}
-function clearAllData() {
-  if(!confirm('Alle gespeicherten Protokolle löschen?')) return;
-  localStorage.removeItem(STORAGE_KEY);
-  renderSidebar();
-  showWelcome();
-  notify('Archiv geleert','Alle gespeicherten Protokolle wurden entfernt.','warn',4000);
-}
-
-/* ═══════════════════════════════════════════
-   SIDEBAR
-═══════════════════════════════════════════ */
-function renderSidebar() {
-  const list = document.getElementById('sidebar-list');
-  const archive = loadArchive();
-  if(!archive.length) {
-    list.innerHTML = '<div class="sidebar-empty">Noch keine gespeicherten Protokolle.\n\nWird automatisch am 1. des Monats generiert.</div>';
-    return;
-  }
-  list.innerHTML = '';
-  archive.forEach(entry => {
-    const btn = document.createElement('button');
-    btn.className = 'sidebar-item';
-    btn.dataset.key = entry.key;
-    btn.innerHTML = `<span class="si-month"><span class="si-dot"></span>${entry.monat} ${entry.year}</span>
-      <span class="si-meta">${new Date(entry.generatedAt).toLocaleDateString('de-DE')}</span>`;
-    btn.onclick = () => loadFromArchive(entry.key);
-    list.appendChild(btn);
-  });
-}
-function setActiveSidebarItem(key) {
-  document.querySelectorAll('.sidebar-item').forEach(b=>{
-    b.classList.toggle('active', b.dataset.key===key);
-  });
-}
-function loadFromArchive(key) {
-  const archive = loadArchive();
-  const entry = archive.find(e=>e.key===key);
-  if(!entry) return;
-  const [y,m] = key.split('-');
-  renderJournal(entry.data, entry.monat, entry.year, false);
-  setActiveSidebarItem(key);
-  document.getElementById('issue-num').textContent = `${entry.monat.toUpperCase()} ${entry.year}`;
-  // Warnung bei älteren Archiveinträgen (>1 Monat)
-  const genDate = new Date(entry.generatedAt);
-  const ageMonths = (new Date() - genDate) / (1000*60*60*24*30);
-  if (ageMonths > 1) {
-    setStatus(`ARCHIV · ${entry.monat} ${entry.year} · Neu generieren für aktuelle Inhalte`);
-    setTimeout(() => notify(
-      'Archiveintrag geladen',
-      `${entry.monat} ${entry.year}: Für aktuelle Neuigkeiten bitte neu generieren.`,
-      'warn', 6000
-    ), 500);
-  } else {
-    setStatus(`ARCHIV · ${entry.monat} ${entry.year}`);
-  }
-}
-
-/* ═══════════════════════════════════════════
-   UI STATE
-═══════════════════════════════════════════ */
-function setStatus(txt){ document.getElementById('status-bar').textContent = txt; }
-function showLoading(step){
-  document.getElementById('loading').classList.add('active');
-  document.getElementById('load-step').textContent = step;
-  document.getElementById('welcome').style.display='none';
-  document.getElementById('journal-content').classList.remove('active');
-  document.getElementById('error-box').classList.remove('active');
-}
-function hideLoading(){ document.getElementById('loading').classList.remove('active'); }
-function showWelcome(){
-  document.getElementById('welcome').style.display='';
-  document.getElementById('journal-content').classList.remove('active');
-  document.getElementById('error-box').classList.remove('active');
-  hideLoading();
-  updateNextDateDisplay();
-}
-function showError(msg){
-  hideLoading();
-  document.getElementById('error-msg').textContent = msg;
-  document.getElementById('error-box').classList.add('active');
-}
-function updateNextDateDisplay(){
-  const berlin = getBerlinNow();
-  let { year, month } = berlin;
-  // Falls Protokoll für diesen Monat bereits existiert → nächsten Monat anzeigen
-  if (getStored(year, month)) {
-    month += 1;
-    if (month > 11) { month = 0; year += 1; }
-  }
-  const next = new Date(year, month, 1);
-  const formatted = next.toLocaleDateString('de-DE',{day:'2-digit',month:'long',year:'numeric'});
-  document.getElementById('next-date-display').textContent =
-    `Nächste automatische Ausgabe: ${formatted}, 06:00 Uhr`;
-}
-
-/* ═══════════════════════════════════════════
-   FALLBACK DATA (offline / API unavailable)
-═══════════════════════════════════════════ */
-function buildDemoData(monat) {
+function buildStaticEdition() {
   return {
     featured_title:`[Juni 2026] QPR ambulant Teil 1a + 1b tritt am 01. Juli 2026 in Kraft — letzte Vorbereitungsphase`,
     featured_summary:`Der MD-Bund ersetzt zum 01. Juli 2026 die seit Januar 2021 geltende QPR ambulant vollständig durch zwei neue Richtlinienteile: QPR Teil 1a (ambulante Pflegedienste inkl. AKI und psychiatrische HKP) und QPR Teil 1b (ambulante Betreuungsdienste nach §71 Abs.1a SGB XI). Die neue Systematik bewertet Pflegequalität erstmals personenbezogen und kriteriengestützt auf einer A–D-Skala statt nach dem alten Punktesystem — Qualitätsunterschiede zwischen Diensten werden für Verbraucher künftig transparent vergleichbar. Zeitgleich tritt die neue Qualitätsdarstellungsvereinbarung (QDVA Teil 1a) in Kraft, die die bisherige Transparenzvereinbarung von 2015 ablöst. Die Veröffentlichung der Maßstäbe und Grundsätze (§113 SGB XI) im Bundesanzeiger ist für Juni 2026 vorgesehen.`,
     featured_practice:`Laden Sie QPR Teil 1a und 1b sofort unter md-bund.de herunter. Führen Sie vor dem 01. Juli 2026 eine interne Begehung anhand der neuen A–D-Kriterien durch. Dokumentationsstrukturen, Risikoassessments und Maßnahmenpläne müssen auf die neue personenbezogene Prüflogik ausgerichtet sein — "Weiter so" bei der Dokumentation birgt reale Prüfungsrisiken.`,
     featured_source:`MD-Bund: QPR ambulante Pflege Teil 1a + 1b, gültig ab 01.07.2026 (md-bund.de); DBFK: Maßstäbe und Grundsätze §113 SGB XI, Inkrafttreten 01.07.2026, Bundesanzeiger-Veröffentlichung Juni 2026 (dbfk-unternehmer.de); AOK Gesundheitspartner: QPR ambulant ab Juli 2026 (aok.de/gp)`,
-    _websearch:false, stat_studies:14, stat_findings:16, stat_sources:9,
+    stand:'Juni 2026', stat_studies:14, stat_findings:16, stat_sources:9,
     stat_category:`QPR ambulant neu ab 01.07.2026 · Pflegemindestlohn +2,6% · BEEP-Befugnisse`,
     categories:{
       recht:[
@@ -940,387 +697,25 @@ function buildDemoData(monat) {
 }
 
 /* ═══════════════════════════════════════════
-   API CALL — mit Web-Search für aktuelle Inhalte
-═══════════════════════════════════════════ */
-function buildPrompt(monat, jahr) {
-  const heute = new Date();
-  // ── Zeitfenster: NUR aktueller Monat (01.MM.YYYY – letzter Tag MM.YYYY) ──
-  const monatsBeginn = new Date(jahr, heute.getMonth(), 1)
-    .toLocaleDateString('de-DE', {day:'2-digit', month:'long', year:'numeric'});
-  const monatsEnde = new Date(jahr, heute.getMonth()+1, 0)
-    .toLocaleDateString('de-DE', {day:'2-digit', month:'long', year:'numeric'});
-
-  // ── Wiederholungsschutz: Sammle Titel aller Vorausgaben ──
-  const archive = loadArchive();
-  const prevTitles = archive.flatMap(entry => {
-    if (!entry.data) return [];
-    const cats = entry.data.categories || {};
-    const catItems = Object.values(cats).flatMap(arr =>
-      Array.isArray(arr) ? arr.map(item => item.title).filter(Boolean) : []
-    );
-    const feat = entry.data.featured_title ? [entry.data.featured_title] : [];
-    return [...feat, ...catItems];
-  });
-
-  const avoidBlock = prevTitles.length > 0 ? `
-═══ STRIKT VERBOTEN — wurden bereits behandelt (KEINE Wiederholungen) ═══
-${prevTitles.map((t,i)=>`${i+1}. ${t}`).join('\n')}
-Diese Themen dürfen NICHT in gleicher oder inhaltlich ähnlicher Form erscheinen.
-Andere Aspekte desselben Gesetzes/Leitlinie sind nur erlaubt wenn genuiner Neuigkeitswert vorliegt.
-` : '';
-
-  // ── Offizielle Quelldatenbanken (Linkliste) ──
-  const SOURCES = [
-    { name:'Cochrane Deutschland',   url:'cochrane.de' },
-    { name:'Cochrane Library',        url:'cochranelibrary.com' },
-    { name:'IQWiG',                   url:'iqwig.de' },
-    { name:'Gesundheitsinformation',  url:'gesundheitsinformation.de' },
-    { name:'AWMF',                    url:'awmf.org' },
-    { name:'ZQP',                     url:'zqp.de' },
-    { name:'DNQP',                    url:'dnqp.de' },
-    { name:'RKI',                     url:'rki.de' },
-    { name:'Joanna Briggs Institute', url:'jbi.global' },
-    { name:'PubMed',                  url:'pubmed.ncbi.nlm.nih.gov' },
-    { name:'Gesetze im Internet',     url:'gesetze-im-internet.de' },
-    { name:'BMG',                     url:'bundesgesundheitsministerium.de' },
-    { name:'BAMF',                    url:'bamf.de' },
-    { name:'MD-Bund',                 url:'md-bund.de' },
-    { name:'Google Scholar',          url:'scholar.google.com' },
-    { name:'LIVIVO',                  url:'livivo.de' },
-    { name:'ICN',                     url:'icn.ch' },
-  ];
-  const siteQueries = SOURCES.map((s,i) =>
-    `${i+1}. site:${s.url} ambulante Pflege "${monat} ${jahr}"`
-  ).join('\n');
-
-  return `Du bist Fachjournalist für ambulante Pflege. Heute ist ${heute.toLocaleDateString('de-DE', {day:'2-digit', month:'long', year:'numeric'})}.
-
-═══ ABSOLUTES ZEITFENSTER — NUR AKTUELLER MONAT ═══
-Ausschließlich Inhalte die im Zeitraum ${monatsBeginn} bis ${monatsEnde} veröffentlicht, geändert oder angekündigt wurden.
-ALLES außerhalb dieses Monats: STRIKT IGNORIEREN — kein älteres Datum, keine Zukunftsplanung über diesen Monat hinaus.
-Keine Inhalte aus Vormonaten, auch wenn sie weiterhin gültig sind.
-Nur: In ${monat} ${jahr} neu veröffentlicht · In ${monat} ${jahr} geändert · In ${monat} ${jahr} angekündigt
-${avoidBlock}
-═══ PFLICHTSUCHEN — NUR AUS DIESEN OFFIZIELLEN QUELLEN — ${monat.toUpperCase()} ${jahr} ═══
-Durchsuche AUSSCHLIESSLICH diese verifizierten Quelldatenbanken in dieser Reihenfolge:
-${siteQueries}
-
-Verwende NUR Treffer die:
-- Auf einer der obigen Domains liegen
-- Im Zeitraum ${monatsBeginn}–${monatsEnde} veröffentlicht oder aktualisiert wurden
-- Ambulante Pflege (SGB V/XI) direkt betreffen
-
-═══ QUALITÄTSREGEL ═══
-Jeder Befund MUSS enthalten:
-- Veröffentlichungsdatum INNERHALB ${monat} ${jahr} + Quell-Domain aus der Linkliste
-- Klare Aussage was sich ÄNDERT oder NEU ist
-- Direkte URL oder Dokumententitel von der jeweiligen Quell-Domain
-
-═══ FALLBACK-REGEL (wenn keine Neuigkeiten in ${monat} ${jahr} für eine Kategorie) ═══
-Falls keine Neuigkeiten für eine Kategorie in diesem Monat auffindbar: KEIN leeres Feld, KEINE Wiederholung.
-Liefere stattdessen einen evidenzbasierten Praxisbeitrag aus DNQP/AWMF/RKI/Cochrane/IQWiG/JBI-Grundlagen,
-der praktischen Mehrwert hat, noch NICHT in früheren Ausgaben behandelt wurde.
-Kennzeichne solche Einträge mit "[Praxiswissen ${monat}]" statt einem aktuellen Datum.
-Jede Kategorie MUSS exakt 2 vollständige Einträge liefern — niemals weniger.
-
-═══ KATEGORIEN ═══
-wundversorgung · demenz · medikamente · hygiene · sturz · ernaehrung · schmerz · recht
-
-Für jede Kategorie exakt 2 Einträge:
-- title: beginnt mit "[${monat} ${jahr}]" oder "[Praxiswissen ${monat}]" (max 80 Zeichen)
-- summary: 2–3 Sätze — WAS ändert sich, WANN in ${monat} ${jahr}, QUELLE mit Domain aus Linkliste
-- practice: 1–2 Sätze — konkrete Handlung mit Datum
-- source: Quellname + Dokumententitel + Datum + URL-Domain aus der Linkliste
-
-Herausragendstes Thema des Monats ${monat} ${jahr}:
-- featured_title, featured_summary (4 Sätze mit Datum), featured_practice, featured_source
-
-Statistik: stat_studies (Anzahl gefundener Quellen in ${monat} ${jahr}), stat_findings:16, stat_sources (Anzahl verschiedener Organisationen aus Linkliste), stat_category (wichtigstes Thema)
-
-Antworte NUR mit JSON:
-{"_websearch":true,"featured_title":"[${monat} ${jahr}] ...","featured_summary":"...","featured_practice":"...","featured_source":"... (${monat} ${jahr})","stat_studies":0,"stat_findings":16,"stat_sources":0,"stat_category":"...","categories":{"wundversorgung":[{"title":"[${monat} ${jahr}] ...","summary":"...","practice":"...","source":"... (${monat} ${jahr})"},{"title":"...","summary":"...","practice":"...","source":"..."}],"demenz":[...],"medikamente":[...],"hygiene":[...],"sturz":[...],"ernaehrung":[...],"schmerz":[...],"recht":[]}}`;
-}
-
-/* Verarbeite API-Antwort inkl. Tool-Use-Blöcke (Web Search) */
-function extractJsonFromResponse(data) {
-  // Sammle alle Text-Blöcke (auch nach Tool-Use-Runden)
-  const texts = data.content
-    .filter(b => b.type === 'text')
-    .map(b => b.text);
-  const raw = texts.join('');
-  try {
-    return JSON.parse(raw.replace(/```json|```/g,'').trim());
-  } catch(_) { return null; }
-}
-
-async function callAPI(monat, jahr) {
-  const reqHeaders = {
-    'Content-Type': 'application/json',
-    'anthropic-version': '2023-06-01',
-    'anthropic-dangerous-direct-browser-access': 'true',
-  };
-
-  const body = {
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 8000,
-    tools: [{
-      type: 'web_search_20250305',
-      name: 'web_search'
-    }],
-    messages: [{role: 'user', content: buildPrompt(monat, jahr)}]
-  };
-
-  let response;
-  try {
-    response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: reqHeaders,
-      body: JSON.stringify(body)
-    });
-  } catch(netErr) {
-    return null;
-  }
-  if (!response.ok) return null;
-
-  let data = await response.json();
-
-  /* ── Agentic Loop: verarbeite Tool-Use bis stop_reason = end_turn ── */
-  let iterations = 0;
-  while (data.stop_reason === 'tool_use' && iterations < 8) {
-    iterations++;
-    const toolUseBlocks = data.content.filter(b => b.type === 'tool_use');
-    if (!toolUseBlocks.length) break;
-
-    // Baue tool_result-Nachrichten (Web Search Ergebnisse kommen vom API zurück)
-    const toolResults = toolUseBlocks.map(tu => ({
-      type: 'tool_result',
-      tool_use_id: tu.id,
-      content: tu.type === 'tool_use' ? (tu.output || '') : ''
-    }));
-
-    // Sende Konversation mit Tool-Ergebnissen weiter
-    const nextBody = {
-      ...body,
-      messages: [
-        {role: 'user', content: buildPrompt(monat, jahr)},
-        {role: 'assistant', content: data.content},
-        {role: 'user', content: toolResults}
-      ]
-    };
-
-    let nextResp;
-    try {
-      nextResp = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: reqHeaders,
-        body: JSON.stringify(nextBody)
-      });
-    } catch(_) { break; }
-    if (!nextResp.ok) break;
-    data = await nextResp.json();
-  }
-
-  return extractJsonFromResponse(data);
-}
-
-/* ═══════════════════════════════════════════
-   GENERATE
-═══════════════════════════════════════════ */
-async function generate(year, month, isAutomatic) {
-  if(isGenerating) return;
-  isGenerating = true;
-  document.getElementById('generate-btn').disabled = true;
-
-  const monat = MONTHS_DE[month];
-  const issueStr = `${monat.toUpperCase()} ${year}`;
-  document.getElementById('issue-num').textContent = issueStr;
-
-  showLoading('DNQP · RKI · AWMF · COCHRANE · G-BA');
-  setStatus(`GENERIERE · ${issueStr} · …`);
-
-  if(isAutomatic) {
-    notify('Automatische Generierung','Monatliches Protokoll wird erstellt.','info',4000);
-  }
-
-  const steps = ['WEBSUCHE · BMG · MD-BUND · QPR 2026','WEBSUCHE · GKV · DBFK · SGB XI','WEBSUCHE · DNQP · AWMF · COCHRANE','WEBSUCHE · RKI · WHO · G-BA','DATUMS-FILTER · NUR LETZTE 6 MONATE','SYNTHESE · AKTUELLE ERKENNTNISSE','FORMATIERUNG · FACHJOURNAL'];
-  let si = 0;
-  const iv = setInterval(()=>{ if(si<steps.length) document.getElementById('load-step').textContent=steps[si++]; }, 1600);
-
-  let jsonData = await callAPI(monat, year);
-  clearInterval(iv);
-
-  let isDemo = false;
-  if(!jsonData) {
-    isDemo = true;
-    jsonData = buildDemoData(monat);
-    
-  }
-
-  storeProtocol(year, month, jsonData, false);
-  renderJournal(jsonData, monat, year, isDemo);
-  setActiveSidebarItem(archiveKey(year, month));
-  hideLoading();
-
-  const srcNote = jsonData._websearch
-    ? `Websuche · ${jsonData.stat_studies} Quellen · ${jsonData.stat_sources} Organisationen`
-    : `${jsonData.stat_studies} aktuelle Quellen · ${jsonData.stat_sources} Organisationen`;
-  notify('Protokoll gespeichert', `${monat} ${year}: ${srcNote}`,'success',8000);
-  setTimeout(()=>notify('Schwerpunkt: '+jsonData.stat_category,
-    'Zeitfenster: letzte 6 Monate bis +3 Monate','info',6000),1400);
-  setStatus(`GESPEICHERT · ${issueStr}`);
-
-  isGenerating = false;
-  document.getElementById('generate-btn').disabled = false;
-}
-
-function manualGenerate() {
-  const berlin = getBerlinNow();
-  generate(berlin.year, berlin.month, false);
-}
-
-/* ═══════════════════════════════════════════
-   GERMAN TIMEZONE — CET/CEST
-   01. jeden Monats, 06:00 Uhr Europa/Berlin
-═══════════════════════════════════════════ */
-
-/**
- * UTC-Timestamp für "01.MM.YYYY 06:00 Europe/Berlin"
- * 01.Jan–01.Mär + 01.Nov–01.Dez → CET (UTC+1) → 05:00 UTC
- * 01.Apr–01.Okt                 → CEST (UTC+2) → 04:00 UTC
- * (01.März liegt immer vor der Sommerzeitumstellung am letzten Sonntag März)
- * (01.Oktober liegt immer vor der Rückstellung am letzten Sonntag Oktober)
- */
-function getMonthlyDueUTC(year, month) {
-  const utcHour = [0,1,2,10,11].includes(month) ? 5 : 4;
-  return Date.UTC(year, month, 1, utcHour, 0, 0);
-}
-
-/** Aktuelle Zeit in Europe/Berlin via Intl.DateTimeFormat */
-function getBerlinNow() {
-  const now = new Date();
-  try {
-    const parts = new Intl.DateTimeFormat('en-US', {
-      timeZone: 'Europe/Berlin',
-      year:'numeric', month:'numeric', day:'numeric',
-      hour:'numeric', minute:'numeric', hour12:false
-    }).formatToParts(now);
-    const g = t => parseInt(parts.find(p=>p.type===t)?.value||'0');
-    return { year:g('year'), month:g('month')-1, day:g('day'), hour:g('hour'), minute:g('minute') };
-  } catch(_) {
-    // Intl-Fallback: UTC+1 als konservative Annahme
-    return {
-      year:now.getUTCFullYear(), month:now.getUTCMonth(),
-      day:now.getUTCDate(), hour:now.getUTCHours()+1, minute:now.getUTCMinutes()
-    };
-  }
-}
-
-function isStaleEntry(entry) {
-  if (!entry.dataVersion || entry.dataVersion !== DATA_VERSION) return true;
-  return false;
-}
-
-/** Millisekunden bis zur nächsten fälligen Generierung */
-function msUntilNextDue(berlinNow) {
-  const { year, month } = berlinNow;
-  const thisDue = getMonthlyDueUTC(year, month);
-  if (Date.now() < thisDue) return thisDue - Date.now();
-  // Nächster Monat
-  const nm = month === 11 ? 0 : month + 1;
-  const ny = month === 11 ? year + 1 : year;
-  return getMonthlyDueUTC(ny, nm) - Date.now();
-}
-
-/** Präziser Warte-Timer — feuert exakt um 06:00 Uhr */
-let _scheduleTimer = null;
-function scheduleNextGeneration() {
-  if (_scheduleTimer) { clearTimeout(_scheduleTimer); _scheduleTimer = null; }
-  const berlin = getBerlinNow();
-  const ms = msUntilNextDue(berlin);
-  if (ms <= 0) return;
-  // Maximale Intervallgröße 1h (Drift-Schutz) — danach neu prüfen
-  const tick = Math.min(ms, 3600 * 1000);
-  _scheduleTimer = setTimeout(() => {
-    const stillMs = msUntilNextDue(getBerlinNow());
-    if (stillMs <= 0) {
-      // Genau fällig — generieren
-      const b = getBerlinNow();
-      if (!getStored(b.year, b.month)) {
-        notify('Automatische Monatsgenerierung',
-          `${MONTHS_DE[b.month]} ${b.year}: Protokoll wird um 06:00 Uhr erstellt.`,'info',5000);
-        setTimeout(() => generate(b.year, b.month, true), 800);
-      }
-    } else {
-      scheduleNextGeneration(); // Noch nicht fällig → neu einplanen
-    }
-  }, tick);
-}
-
-/* ═══════════════════════════════════════════
-   AUTO-GENERATION (01. des Monats, 06:00 CET/CEST)
-═══════════════════════════════════════════ */
-function checkAutoGenerate() {
-  const berlin = getBerlinNow();
-  const { year, month } = berlin;
-  const existing = getStored(year, month);
-  const dueUTC = getMonthlyDueUTC(year, month);
-  const isDue = Date.now() >= dueUTC;
-
-  // Veraltet (andere DATA_VERSION) → löschen + neu generieren
-  if (existing && isStaleEntry(existing)) {
-    let archive = loadArchive();
-    archive = archive.filter(e => e.key !== archiveKey(year, month));
-    saveArchive(archive);
-    renderSidebar();
-    notify('Inhalte werden aktualisiert',
-      'Gespeicherte Version veraltet — aktuelle Inhalte werden geladen.','info',5000);
-    setTimeout(() => generate(year, month, true), 1800);
-    scheduleNextGeneration();
-    return true;
-  }
-
-  // Fällig (01. ≥ 06:00 Berlin) UND noch kein Protokoll → generieren
-  if (!existing && isDue) {
-    notify('Automatische Monatsgenerierung',
-      `${MONTHS_DE[month]} ${year}: Neues Evidenz-Protokoll wird erstellt.`,'info',5000);
-    setTimeout(() => generate(year, month, true), 1200);
-    scheduleNextGeneration();
-    return true;
-  }
-
-  // Noch nicht fällig (z.B. vor 06:00 am 01.) → Welcome + Timer
-  if (!existing) {
-    showWelcome();
-    updateNextDateDisplay();
-    scheduleNextGeneration();
-    return false;
-  }
-
-  // Aktuelles Protokoll vorhanden → laden, Timer für nächsten Monat
-  renderJournal(existing.data, existing.monat, existing.year, false);
-  setActiveSidebarItem(archiveKey(year, month));
-  document.getElementById('issue-num').textContent =
-    `${existing.monat.toUpperCase()} ${existing.year}`;
-  setStatus(`GELADEN · ${existing.monat} ${existing.year}`);
-  scheduleNextGeneration();
-  return false;
-}
-
-/* ═══════════════════════════════════════════
    RENDER JOURNAL
 ═══════════════════════════════════════════ */
-function renderJournal(data, monat, year, isDemo) {
+function renderJournal(data) {
   const cont = document.getElementById('journal-content');
   cont.innerHTML = '';
-  document.getElementById('welcome').style.display = 'none';
+
+  // Hinweis: ehrliche Kennzeichnung statt impliziter Live-Recherche
+  const notice = document.createElement('div');
+  notice.className = 'static-notice';
+  notice.textContent = `Statische, redaktionell kuratierte Ausgabe · Stand: ${data.stand} · keine automatisierte Live-Recherche, keine KI-Generierung`;
+  cont.appendChild(notice);
 
   // Header
   const hdr = document.createElement('div');
   hdr.className = 'edition-header';
   hdr.innerHTML = `
-    <h2>Evidenz-Protokoll · ${monat} ${year}</h2>
+    <h2>Evidenz-Übersicht · Kuratierte Ausgabe</h2>
     <div class="edition-meta">
-      Ausgewertet: ${new Date().toLocaleDateString('de-DE')}<br>
+      Stand: ${esc(data.stand)}<br>
       Quellen: DNQP · RKI · AWMF · BMG · DBFK · GKV · MD-Bund · QPR · WHO<br>
       Schwerpunkt: <strong>${esc(data.stat_category||'—')}</strong>
     </div>`;
@@ -1334,7 +729,7 @@ function renderJournal(data, monat, year, isDemo) {
       <div>
         <div class="tile-header" style="border-bottom:none;padding-bottom:0">
           <div class="cat-icon" style="background:#8b2515;font-size:1.2rem">★</div>
-          <div><div class="cat-name">Hauptthema ${monat}</div><div class="cat-label">Redaktioneller Schwerpunkt</div></div>
+          <div><div class="cat-name">Hauptthema</div><div class="cat-label">Redaktioneller Schwerpunkt</div></div>
         </div>
         <div class="finding" style="margin-top:1rem">
           <div class="finding-title">${esc(data.featured_title)}</div>
@@ -1384,7 +779,6 @@ function renderJournal(data, monat, year, isDemo) {
     <div class="summary-stat"><span class="stat-num">${data.stat_sources||'—'}</span><span class="stat-label">Fachorganisationen</span></div>
     <div class="summary-stat"><span class="stat-num">8</span><span class="stat-label">Pflegekategorien</span></div>`;
   cont.appendChild(bar);
-  cont.classList.add('active');
 }
 
 function esc(s){
@@ -1456,33 +850,30 @@ Zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtun
 <p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für die Nutzung der Webanwendung APF·Monitor (nachfolgend „Dienst"). Mit der Nutzung des Dienstes erklärt der Nutzer sein Einverständnis mit diesen AGB.</p>
 
 <p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 2 Leistungsbeschreibung</p>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">APF·Monitor ist ein KI-gestütztes Fachinformationssystem für ambulante Pflegedienste. Der Dienst generiert monatliche Evidenz-Protokolle auf Basis öffentlich zugänglicher Quellen (DNQP, RKI, AWMF, Cochrane, G-BA, BMG, DBFK, GKV-Spitzenverband, MD-Bund, SGB V/XI, MDS, QPR, WHO, DGP). Die Nutzung erfolgt ausschließlich zu Informationszwecken.</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">APF·Monitor ist ein statisches, redaktionell kuratiertes Fachinformationsangebot für ambulante Pflegedienste auf Basis öffentlich zugänglicher Quellen (DNQP, RKI, AWMF, Cochrane, G-BA, BMG, DBFK, GKV-Spitzenverband, MD-Bund, SGB V/XI, MDS, QPR, WHO, DGP). Es findet keine automatisierte Recherche oder KI-Generierung statt. Die Nutzung erfolgt ausschließlich zu Informationszwecken.</p>
 
 <p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 3 Nutzungsbedingungen</p>
 <p style="color:#aaa;margin-bottom:.5rem;font-size:.62rem;">Der Nutzer verpflichtet sich:</p>
 <ul style="color:#aaa;font-size:.62rem;padding-left:1.2rem;margin-bottom:1rem;line-height:2;">
   <li>Den Dienst ausschließlich für legale, beruflich-fachliche Zwecke zu verwenden.</li>
-  <li>Die generierten Inhalte nicht als abschließende Rechts- oder Behandlungsgrundlage zu verwenden.</li>
+  <li>Die bereitgestellten Inhalte nicht als abschließende Rechts- oder Behandlungsgrundlage zu verwenden.</li>
   <li>Keine automatisierten Zugriffe, Scraping oder Reverse-Engineering-Maßnahmen durchzuführen.</li>
   <li>Dritte nicht in die Lage zu versetzen, die Sicherheitsmechanismen des Dienstes zu umgehen.</li>
 </ul>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 4 API-Schlüssel &amp; Drittanbieter</p>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Der Dienst nutzt die Anthropic Claude API. Der Nutzer ist für die sichere Verwahrung seines persönlichen API-Schlüssels verantwortlich. Der Anbieter haftet nicht für Schäden, die aus dem Missbrauch oder Verlust des API-Schlüssels entstehen. Es gelten ergänzend die Nutzungsbedingungen der Anthropic PBC (https://www.anthropic.com/legal/usage-policy).</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 4 Verfügbarkeit</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Eine ununterbrochene Verfügbarkeit des Dienstes wird nicht garantiert. Wartungsarbeiten oder technische Störungen können die Verfügbarkeit einschränken. Ein Anspruch auf Verfügbarkeit besteht nicht.</p>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 5 Verfügbarkeit</p>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Eine ununterbrochene Verfügbarkeit des Dienstes wird nicht garantiert. Wartungsarbeiten, technische Störungen oder Änderungen seitens der eingesetzten Drittanbieter (Anthropic API) können die Verfügbarkeit einschränken. Ein Anspruch auf Verfügbarkeit besteht nicht.</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 5 Geistiges Eigentum</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Design, Quellcode und Inhalte des APF·Monitor sind urheberrechtlich geschützt. Die bereitgestellten Inhalte werden dem Nutzer zur eigenen beruflichen Nutzung bereitgestellt. Eine kommerzielle Weitergabe oder Veröffentlichung ohne ausdrückliche Zustimmung des Anbieters ist untersagt.</p>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 6 Geistiges Eigentum</p>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Design, Quellcode und Systemarchitektur des APF·Monitor sind urheberrechtlich geschützt. Die generierten Protokollinhalte werden dem Nutzer zur eigenen beruflichen Nutzung bereitgestellt. Eine kommerzielle Weitergabe oder Veröffentlichung ohne ausdrückliche Zustimmung des Anbieters ist untersagt.</p>
-
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 7 Änderungen der AGB</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 6 Änderungen der AGB</p>
 <p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Der Anbieter behält sich vor, diese AGB jederzeit zu ändern. Änderungen werden durch Aktualisierung des Datums im Kopf dieser AGB kenntlich gemacht. Die fortgesetzte Nutzung nach Veröffentlichung geänderter AGB gilt als Zustimmung.</p>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 8 Anwendbares Recht &amp; Gerichtsstand</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 7 Anwendbares Recht &amp; Gerichtsstand</p>
 <p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Es gilt ausschließlich das Recht der Bundesrepublik Deutschland. Gerichtsstand für alle Streitigkeiten ist, soweit gesetzlich zulässig, der Sitz des Anbieters.</p>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 9 Salvatorische Klausel</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">§ 8 Salvatorische Klausel</p>
 <p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, berührt dies die Wirksamkeit der übrigen Bestimmungen nicht. An die Stelle unwirksamer Regelungen tritt die gesetzliche Regelung.</p>`
   },
 
@@ -1497,16 +888,10 @@ Zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtun
 <p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">2. Grundsätze der Datenverarbeitung</p>
 <p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">APF·Monitor verarbeitet personenbezogene Daten auf Basis von Art. 6 DSGVO ausschließlich im erforderlichen Umfang. Der Dienst ist technisch so konzipiert, dass keine Daten auf externen Servern des Anbieters gespeichert werden.</p>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">3. Lokaler Gerätespeicher (localStorage)</p>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Generierte Protokolle und der API-Schlüssel werden ausschließlich im <strong style="color:#ccc;">localStorage des verwendeten Endgeräts</strong> gespeichert. Diese Daten verlassen das Endgerät des Nutzers nicht und werden nicht an den Anbieter übertragen. Der Nutzer kann diese Daten jederzeit über die Funktion „Archiv löschen" oder über die Browsereinstellungen entfernen. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Funktionsbereitstellung).</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">3. Keine Server-seitige Datenerhebung</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Der APF·Monitor wird als statische HTML-Anwendung ausgeliefert, ohne Backend und ohne externe API-Anbindung. Es werden keine Cookies, Tracking-Technologien, Analyse-Dienste oder serverseitige Protokolldateien durch den Anbieter eingesetzt. Etwaige Zugriffsprotokolle entstehen ausschließlich beim Hosting-Anbieter nach dessen eigenen Datenschutzbestimmungen.</p>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">4. Anthropic Claude API</p>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Für die Generierung der Protokolle werden Anfragen an die Anthropic Claude API (Anthropic PBC, 548 Market St PMB 90375, San Francisco, CA 94104, USA) übermittelt. Die übermittelten Daten umfassen ausschließlich den strukturierten Fachprompt — keine personenbezogenen Daten des Nutzers. Die Datenübertragung in die USA erfolgt auf Basis von Standardvertragsklauseln (SCCs) gemäß Art. 46 Abs. 2 lit. c DSGVO. Datenschutzerklärung Anthropic: https://www.anthropic.com/legal/privacy</p>
-
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">5. Keine Server-seitige Datenerhebung</p>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Der APF·Monitor wird als statische HTML-Anwendung ausgeliefert. Es werden keine Cookies, Tracking-Technologien, Analyse-Dienste oder serverseitige Protokolldateien durch den Anbieter eingesetzt. Etwaige Zugriffsprotokolle entstehen ausschließlich beim Hosting-Anbieter (z.B. GitHub Pages) nach dessen eigenen Datenschutzbestimmungen.</p>
-
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">6. Rechte der betroffenen Personen (Art. 15–22 DSGVO)</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">4. Rechte der betroffenen Personen (Art. 15–22 DSGVO)</p>
 <ul style="color:#aaa;font-size:.62rem;padding-left:1.2rem;margin-bottom:1rem;line-height:2;">
   <li><strong style="color:#ccc;">Auskunftsrecht</strong> (Art. 15): Welche Daten werden verarbeitet?</li>
   <li><strong style="color:#ccc;">Berichtigung</strong> (Art. 16): Korrektur unrichtiger Daten.</li>
@@ -1515,9 +900,9 @@ Zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtun
   <li><strong style="color:#ccc;">Datenübertragbarkeit</strong> (Art. 20): Export in maschinenlesbarem Format.</li>
   <li><strong style="color:#ccc;">Widerspruch</strong> (Art. 21): Widerspruch gegen Verarbeitungen auf Basis berechtigter Interessen.</li>
 </ul>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Da lokal gespeicherte Daten ausschließlich auf dem Endgerät des Nutzers liegen, können sämtliche Betroffenenrechte durch den Nutzer selbst ausgeübt werden (Browserfunktionen). Kontakt für Anfragen: [E-Mail aus Impressum].</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Da der Dienst keine personenbezogenen Daten verarbeitet oder speichert, bestehen in der Praxis keine zu beauskunftenden Datenbestände. Kontakt für Anfragen: [E-Mail aus Impressum].</p>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">7. Beschwerderecht</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">5. Beschwerderecht</p>
 <p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Jede betroffene Person hat das Recht, Beschwerde bei einer Aufsichtsbehörde einzulegen (Art. 77 DSGVO). Zuständige Aufsichtsbehörde richtet sich nach dem Bundesland des Verantwortlichen.</p>
 
 <p style="color:#444;font-size:.56rem;margin-top:1.4rem;border-top:1px solid #1e1e1a;padding-top:.9rem;">Diese Datenschutzerklärung hat den Stand Januar 2025. Bei wesentlichen Änderungen der Datenverarbeitungsprozesse wird die Erklärung aktualisiert.</p>`
@@ -1529,21 +914,18 @@ Zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtun
 <p style="color:#8b2515;font-size:.6rem;margin-bottom:1.2rem;letter-spacing:.06em;text-transform:uppercase;">Haftung für Inhalte &amp; Links</p>
 
 <p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">1. Haftung für Inhalte (§ 7 Abs. 1 TMG)</p>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Die durch APF·Monitor generierten Protokollinhalte werden von einer KI (Anthropic Claude) auf Basis öffentlich zugänglicher Fachliteratur und Leitlinien erstellt. Trotz sorgfältiger Auswahl der Quellen übernimmt der Anbieter <strong style="color:#c0534a;">keine Haftung</strong> für die Richtigkeit, Vollständigkeit, Aktualität oder Qualität der bereitgestellten Informationen.</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Die Inhalte des APF·Monitor sind statisch und redaktionell kuratiert auf Basis öffentlich zugänglicher Fachliteratur und Leitlinien (Stand siehe Kennzeichnung in der jeweiligen Ausgabe). Trotz sorgfältiger Auswahl der Quellen übernimmt der Anbieter <strong style="color:#c0534a;">keine Haftung</strong> für die Richtigkeit, Vollständigkeit oder Aktualität der bereitgestellten Informationen.</p>
 
 <p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">2. Kein Ersatz für fachliche Beratung</p>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Die Inhalte des APF·Monitor ersetzen <strong style="color:#c0534a;">keine</strong> individuelle rechtliche, medizinische oder pflegerische Fachberatung. Pflegerelevante Entscheidungen (Diagnostik, Therapie, Medikamentengabe, Rechtsauslegung) dürfen nicht allein auf Basis der generierten Protokolle getroffen werden. Maßgeblich sind stets die aktuell gültigen Fachleitlinien, ärztliche Anordnungen und die individuelle Patientensituation.</p>
+<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Die Inhalte des APF·Monitor ersetzen <strong style="color:#c0534a;">keine</strong> individuelle rechtliche, medizinische oder pflegerische Fachberatung. Pflegerelevante Entscheidungen (Diagnostik, Therapie, Medikamentengabe, Rechtsauslegung) dürfen nicht allein auf Basis der bereitgestellten Inhalte getroffen werden. Maßgeblich sind stets die aktuell gültigen Fachleitlinien, ärztliche Anordnungen und die individuelle Patientensituation.</p>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">3. KI-generierte Inhalte</p>
-<p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">KI-Sprachmodelle können inhaltliche Fehler, Auslassungen oder Halluzinationen produzieren. Der Anbieter haftet nicht für Schäden, die aus der unkritischen Übernahme KI-generierter Aussagen entstehen. Nutzer sind aufgefordert, alle klinisch relevanten Informationen anhand der Originalquellen zu verifizieren.</p>
-
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">4. Haftung für externe Links</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">3. Haftung für externe Links</p>
 <p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Der Dienst kann auf externe Webseiten verweisen. Für deren Inhalte ist ausschließlich der jeweilige Betreiber verantwortlich. Zum Zeitpunkt der Verlinkung wurden keine rechtswidrigen Inhalte erkennbar. Eine kontinuierliche Kontrolle verlinkter Seiten ist ohne konkreten Hinweis auf Rechtsverstöße nicht zumutbar. Bei Bekanntwerden von Rechtsverstößen werden entsprechende Links umgehend entfernt.</p>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">5. Haftungsbeschränkung (§ 521 BGB analog)</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">4. Haftungsbeschränkung (§ 521 BGB analog)</p>
 <p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Soweit der Dienst unentgeltlich zur Verfügung gestellt wird, haftet der Anbieter nur für Vorsatz und grobe Fahrlässigkeit. Die Haftung für leichte Fahrlässigkeit sowie für mittelbare Schäden, entgangenen Gewinn oder Datenverlust wird — soweit gesetzlich zulässig — ausgeschlossen.</p>
 
-<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">6. Urheberrecht</p>
+<p style="color:#ccc;font-size:.64rem;margin-bottom:.5rem;font-weight:700;">5. Urheberrecht</p>
 <p style="color:#aaa;margin-bottom:1rem;font-size:.62rem;">Die zitierten Quellen (DNQP, RKI, AWMF, Cochrane, G-BA u.a.) stehen unter den jeweiligen Urheberrechten ihrer Herausgeber. APF·Monitor gibt Inhalte zusammenfassend und interpretierend wieder; dies stellt keine Verletzung fremder Urheberrechte dar, soweit die Grenzen des Zitatrechts (§ 51 UrhG) eingehalten werden.</p>
 
 <p style="color:#444;font-size:.56rem;margin-top:1.4rem;border-top:1px solid #1e1e1a;padding-top:.9rem;">Dieser Haftungsausschluss ist integraler Bestandteil des APF·Monitor-Dienstes. Durch die Nutzung des Dienstes akzeptiert der Nutzer diese Bedingungen ausdrücklich.</p>`
@@ -1564,19 +946,8 @@ function closeLegal() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderSidebar();
-  checkAutoGenerate();
-   if(window.speechSynthesis) window.speechSynthesis.getVoices();
-   if(location.protocol!=='https:' && (localStorage.getItem('apf_el_api_key')||'').length>5){
-     setTimeout(()=>notify(
-       'GitHub Pages öffnen',
-       'Jonas Berger Stimme ist aktiv — für Sprachausgabe die App über nekrieg1401.github.io öffnen.',
-       'info', 9000
-     ), 2000);
-   }
+  renderJournal(buildStaticEdition());
 });
-
-
-
 </script>
-</body></body></body>
+</body>
+</html>
